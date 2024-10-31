@@ -1,0 +1,7 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: ServersTransport
+metadata:
+    name: insecure-transport
+    namespace: apps
+spec:
+    insecureSkipVerify: true  # Skip verification of the self-signed cert

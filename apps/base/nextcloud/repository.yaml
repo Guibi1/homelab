@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: nextcloud-repo
+    namespace: apps
+spec:
+    type: default
+    url: https://nextcloud.github.io/helm/
+    interval: 5m

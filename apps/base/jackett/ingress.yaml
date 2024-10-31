@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: jackett-ingress
+    namespace: apps
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: Host(`jackett.guibi.dev`)
+          kind: Rule
+          services:
+              - name: jackett
+                namespace: apps
+                port: 9117
+    tls:
+        secretName: tls-guibi.dev

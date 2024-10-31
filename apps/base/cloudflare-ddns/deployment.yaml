@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: cloudflare-ddns
+    namespace: cert-manager
+spec:
+    selector:
+        matchLabels:
+            app: cloudflare-ddns
+    template:
+        metadata:
+            labels:
+              app: cloudflare-ddns
+        spec:
+          containers:
+            - name: cloudflare-ddns
+              image: favonia/cloudflare-ddns:latest
+              imagePullPolicy: IfNotPresent
+              env:
+                - name: CLOUDFLARE_API_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: cloudflare-api-token-secret
+                      key: api-token
+                - name: DOMAINS
+                  value: "srv.guibi.dev"

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: home-assistant
+    namespace: apps
+spec:
+    type: ClusterIP
+    selector:
+        app: home-assistant
+    ports:
+      - name: webui
+        port: 8123
+        protocol: TCP

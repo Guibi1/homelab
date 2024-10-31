@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: crafty-ingress
+    namespace: apps
+spec:
+    entryPoints:
+      - websecure
+    routes:
+      - match: Host(`crafty.guibi.dev`)
+        kind: Rule
+        services:
+          - name: crafty
+            namespace: apps
+            port: 443
+            scheme: https
+            serversTransport: insecure-transport
+    tls:
+        secretName: tls-guibi.dev

@@ -1,0 +1,19 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+    name: home-assistant-ingress
+    namespace: apps
+spec:
+    entryPoints:
+      - websecure
+    routes:
+      - match: Host(`hass.guibi.dev`)
+        kind: Rule
+        services:
+          - name: home-assistant
+            namespace: apps
+            port: 8123
+            scheme: https
+            serversTransport: insecure-transport
+    tls:
+        secretName: tls-guibi.dev

@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: vaultwarden-repo
+    namespace: apps
+spec:
+    type: default
+    url: https://guerzon.github.io/vaultwarden
+    interval: 5m

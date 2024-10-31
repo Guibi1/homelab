@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: home-assistant
+    namespace: apps
+spec:
+    selector:
+        matchLabels:
+            app: home-assistant
+    template:
+        metadata:
+            labels:
+              app: home-assistant
+        spec:
+          containers:
+            - name: home-assistant
+              image: ghcr.io/home-assistant/home-assistant:stable
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                  tcpSocket:
+                      port: 8123
+                  initialDelaySeconds: 0
+                  failureThreshold: 3
+                  timeoutSeconds: 1
+                  periodSeconds: 10
+              readinessProbe:
+                  tcpSocket:
+                      port: 8123
+                  initialDelaySeconds: 0
+                  failureThreshold: 3
+                  timeoutSeconds: 1
+                  periodSeconds: 10
+              startupProbe:
+                  tcpSocket:
+                      port: 8123
+                  initialDelaySeconds: 0
+                  failureThreshold: 30
+                  timeoutSeconds: 1
+                  periodSeconds: 5
+              ports:
+                - name: webui
+                  containerPort: 8123
+                  protocol: TCP
+              env:
+                - name: TZ
+                  value: "America/Toronto"
+              volumeMounts:
+                - name: config
+                  mountPath: "/config"
+
+          volumes:
+            - name: config
+              hostPath:
+                  path: "/mnt/SSD/app-storage/home-assistant"
+                  type: Directory

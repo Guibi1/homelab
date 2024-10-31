@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: crafty
+    namespace: apps
+spec:
+    selector:
+        matchLabels:
+            app: crafty
+    template:
+        metadata:
+            labels:
+              app: crafty
+        spec:
+          containers:
+            - name: crafty
+              image: arcadiatechnology/crafty-4:latest
+              imagePullPolicy: IfNotPresent
+              livenessProbe:
+                  tcpSocket:
+                      port: 8443
+                  initialDelaySeconds: 0
+                  failureThreshold: 3
+                  timeoutSeconds: 1
+                  periodSeconds: 10
+              readinessProbe:
+                  tcpSocket:
+                      port: 8443
+                  initialDelaySeconds: 0
+                  failureThreshold: 3
+                  timeoutSeconds: 1
+                  periodSeconds: 10
+              startupProbe:
+                  tcpSocket:
+                      port: 8443
+                  initialDelaySeconds: 0
+                  failureThreshold: 30
+                  timeoutSeconds: 1
+                  periodSeconds: 5
+              ports:
+                - name: webui
+                  containerPort: 8443
+                  protocol: TCP
+                - containerPort: 25500
+                  protocol: TCP
+                - containerPort: 25501
+                  protocol: TCP
+                - containerPort: 25502
+                  protocol: TCP
+                - containerPort: 25503
+                  protocol: TCP
+                - containerPort: 25504
+                  protocol: TCP
+                - name: geyser
+                  containerPort: 25520
+                  protocol: UDP
+              env:
+                - name: TZ
+                  value: "America/Toronto"
+              volumeMounts:
+                - name: backups
+                  mountPath: "/crafty/backups"
+                - name: servers
+                  mountPath: "/crafty/servers"
+                - name: config
+                  mountPath: "/crafty/app/config"
+
+          volumes:
+            - name: backups
+              hostPath:
+                  path: "/mnt/Data/MinecraftBackups"
+                  type: Directory
+            - name: servers
+              hostPath:
+                  path: "/mnt/SSD/MinecraftServers"
+                  type: Directory
+            - name: config
+              hostPath:
+                  path: "/mnt/SSD/app-storage/crafty-controller"
+                  type: Directory

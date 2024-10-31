@@ -1,0 +1,86 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: nextcloud
+    namespace: apps
+spec:
+    releaseName: nextcloud
+    chart:
+        spec:
+            chart: nextcloud
+            sourceRef:
+                kind: HelmRepository
+                name: nextcloud-repo
+                namespace: apps
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+    values:
+        nextcloud:
+            host: cloud.guibi.dev
+            datadir: /var/www/html/data
+            extraEnv:
+              - name: overwrite.cli.url
+                value: https://cloud.guibi.dev
+              - name: TRUSTED_PROXIES
+                value: 10.42.0.0/16
+              - name: APACHE_DISABLE_REWRITE_IP
+                value: "1"
+            configs:
+                general.config.php: |-
+                    <?php
+                    $CONFIG = array (
+                      'maintenance_window_start' => 1,
+                      'enable_previews' => true,
+                      'enabledPreviewProviders' => array (
+                        'OC\Preview\Movie',
+                        'OC\Preview\PNG',
+                        'OC\Preview\JPEG',
+                        'OC\Preview\GIF',
+                        'OC\Preview\BMP',
+                        'OC\Preview\XBitmap',
+                        'OC\Preview\MP3',
+                        'OC\Preview\MP4',
+                        'OC\Preview\TXT',
+                        'OC\Preview\MarkDown',
+                        'OC\Preview\PDF'
+                      ),
+                    );
+            phpConfigs:
+                opcache.interned_strings_buffer: "10"
+
+        internalDatabase:
+            enabled: false
+
+        externalDatabase:
+            enabled: true
+            type: postgresql
+            host: nextcloud-cluster-rw.apps.svc.cluster.local:5432
+            database: nextcloud
+            user: nextcloud
+            password: nextcloud
+
+        redis:
+            enabled: true
+
+        persistence:
+            enabled: true
+            storageClass: ""
+            existingClaim: nextcloud-data-pvc
+
+        cronjob:
+            enabled: true
+
+        service:
+            type: ClusterIP
+
+        ingress:
+            enabled: true
+            annotations:
+              traefik.ingress.kubernetes.io/router.entrypoints: websecure
+              traefik.ingress.kubernetes.io/router.tls: "true"
+            tls:
+              - hosts:
+                  - cloud.guibi.dev
+                secretName: tls-guibi.dev
