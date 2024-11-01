@@ -33,4 +33,7 @@ spec:
                 traefik.ingress.kubernetes.io/router.tls: "true"
             hosts:
               - srv.guibi.dev
-            tls: tls-guibi.dev
+            tls:
+              - hosts:
+                  - srv.guibi.dev
+                secretName: tls-guibi.dev
