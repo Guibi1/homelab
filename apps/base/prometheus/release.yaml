@@ -1,18 +1,19 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: prometheus-operator
+    name: prometheus
     namespace: prometheus
 spec:
-    releaseName: prometheus-operator
+    releaseName: prometheus
     chart:
         spec:
-            chart: prometheus-operator
+            chart: prometheus
             sourceRef:
                 kind: HelmRepository
-                name: truecharts-repo
-                namespace: apps
+                name: prometheus-repo
+                namespace: prometheus
     interval: 50m
     install:
         remediation:
             retries: 3
+    values:
