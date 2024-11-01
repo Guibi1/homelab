@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
     - ../base/cloudflare-ddns
     - ../base/cnpg
-    - ../base/grafana
+    # - ../base/grafana
     - ../base/prometheus
 
     - ../base/crafty

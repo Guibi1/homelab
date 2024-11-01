@@ -29,6 +29,9 @@ spec:
         storageClass: local-path
         size: 2Gi
 
+    monitoring:
+        enablePodMonitor: true
+
     resources:
         requests:
             memory: "512Mi"

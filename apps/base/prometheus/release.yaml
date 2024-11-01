@@ -7,7 +7,7 @@ spec:
     releaseName: prometheus
     chart:
         spec:
-            chart: prometheus
+            chart: kube-prometheus-stack
             sourceRef:
                 kind: HelmRepository
                 name: prometheus-repo
@@ -17,3 +17,15 @@ spec:
         remediation:
             retries: 3
     values:
+        ingress:
+            enabled: true
+            ingressClassName: traefik
+            annotations:
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
+            hosts:
+              - srv.guibi.dev
+            tls:
+              - hosts:
+                  - srv.guibi.dev
+                secretName: tls-guibi.dev
