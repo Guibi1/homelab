@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
     name: prometheus
-    namespace: prometheus
+    namespace: monitoring
 spec:
     releaseName: prometheus
     chart:
@@ -17,15 +17,16 @@ spec:
         remediation:
             retries: 3
     values:
-        ingress:
-            enabled: true
-            ingressClassName: traefik
-            annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: websecure
-                traefik.ingress.kubernetes.io/router.tls: "true"
-            hosts:
-              - srv.guibi.dev
-            tls:
-              - hosts:
+        grafana:
+            ingress:
+                enabled: true
+                ingressClassName: traefik
+                annotations:
+                    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                    traefik.ingress.kubernetes.io/router.tls: "true"
+                hosts:
                   - srv.guibi.dev
-                secretName: tls-guibi.dev
+                tls:
+                  - hosts:
+                      - srv.guibi.dev
+                    secretName: tls-guibi.dev
