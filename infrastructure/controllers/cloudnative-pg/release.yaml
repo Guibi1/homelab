@@ -10,8 +10,8 @@ spec:
             chart: cloudnative-pg
             sourceRef:
                 kind: HelmRepository
-                name: truecharts-repo
-                namespace: apps
+                name: cloudnative-pg-repo
+                namespace: cnpg
     interval: 50m
     install:
         remediation:

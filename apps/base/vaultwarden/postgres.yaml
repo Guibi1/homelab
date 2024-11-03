@@ -2,7 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
     name: vaultwarden-cluster
-    namespace: apps
+    namespace: cnpg
 spec:
     description: "Vaultwarden cluster"
     imageName: ghcr.io/cloudnative-pg/postgresql:16.2
@@ -53,9 +53,9 @@ spec:
 apiVersion: v1
 kind: Secret
 type: kubernetes.io/basic-auth
+metadata:
+    name: vaultwarden-cluster-secret
+    namespace: cnpg
 data:
     username: dmF1bHR3YXJkZW4=
     password: dmF1bHR3YXJkZW4=
-metadata:
-    name: vaultwarden-cluster-secret
-    namespace: apps

@@ -21,7 +21,7 @@ spec:
 
         database:
             type: postgresql
-            uriOverride: postgresql://vaultwarden:vaultwarden@vaultwarden-cluster-rw.apps.svc.cluster.local:5432/vaultwarden
+            uriOverride: postgresql://vaultwarden:vaultwarden@vaultwarden-cluster-rw.cnpg.svc.cluster.local:5432/vaultwarden
 
         ingress:
             enabled: true

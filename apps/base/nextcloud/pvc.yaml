@@ -10,7 +10,9 @@ spec:
       - ReadWriteOnce
     hostPath:
         path: /mnt/Data/NextCloud
+
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:

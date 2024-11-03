@@ -16,7 +16,9 @@ spec:
                       apiTokenSecretRef:
                           name: cloudflare-api-token-secret
                           key: api-token
+
 ---
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
