@@ -17,6 +17,11 @@ spec:
         remediation:
             retries: 3
     values:
+        prometheus:
+            prometheusSpec:
+                podMonitorSelectorNilUsesHelmValues: false
+                serviceMonitorSelectorNilUsesHelmValues: false
+
         grafana:
             ingress:
                 enabled: true
