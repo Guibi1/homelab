@@ -62,7 +62,7 @@ spec:
             password: nextcloud
 
         redis:
-            enabled: false
+            enabled: true
 
         persistence:
             enabled: true
@@ -70,7 +70,7 @@ spec:
             existingClaim: nextcloud-data-pvc
 
         cronjob:
-            enabled: false
+            enabled: true
 
         service:
             type: ClusterIP
