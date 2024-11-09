@@ -16,6 +16,8 @@ spec:
             - name: home-assistant
               image: ghcr.io/home-assistant/home-assistant:stable
               imagePullPolicy: IfNotPresent
+              securityContext:
+                  privileged: true
               livenessProbe:
                   tcpSocket:
                       port: 8123
@@ -47,9 +49,15 @@ spec:
               volumeMounts:
                 - name: config
                   mountPath: "/config"
+                - name: zigbee
+                  mountPath: "/dev/ttyUSB0"
 
           volumes:
             - name: config
               hostPath:
                   path: "/mnt/SSD/app-storage/home-assistant"
+                  type: Directory
+            - name: zigbee
+              hostPath:
+                  path: "/dev/ttyUSB0"
                   type: Directory
