@@ -60,4 +60,4 @@ spec:
             - name: zigbee
               hostPath:
                   path: "/dev/ttyUSB0"
-                  type: Directory
+                  type: CharDevice
