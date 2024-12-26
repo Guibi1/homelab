@@ -16,3 +16,8 @@ spec:
     install:
         remediation:
             retries: 3
+
+    values:
+        engines:
+            local.lvm.enabled: false
+            replicated.mayastor.enabled: false
