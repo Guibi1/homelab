@@ -14,9 +14,9 @@ spec:
     postgresql:
         parameters:
             shared_buffers: 256MB
-            pg_stat_statements.max: '10000'
+            pg_stat_statements.max: "10000"
             pg_stat_statements.track: all
-            auto_explain.log_min_duration: '10s'
+            auto_explain.log_min_duration: "10s"
 
     bootstrap:
         initdb:
@@ -26,8 +26,16 @@ spec:
                 name: vaultwarden-cluster-secret
 
     storage:
-        storageClass: local-path
-        size: 2Gi
+        storageClass: openebs-zfspv
+        size: 10Gi
+    walStorage:
+        storageClass: openebs-zfspv
+        size: 10Gi
+
+    backup:
+        # Volume snapshot backups
+        volumeSnapshot:
+            className: openebs-zfspv-snapshot
 
     monitoring:
         enablePodMonitor: true
@@ -49,7 +57,6 @@ spec:
         reusePVC: false
 
 ---
-
 apiVersion: v1
 kind: Secret
 type: kubernetes.io/basic-auth
@@ -59,3 +66,16 @@ metadata:
 data:
     username: dmF1bHR3YXJkZW4=
     password: dmF1bHR3YXJkZW4=
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+    name: vaultwarden-cluster-backup
+spec:
+    cluster:
+        name: vaultwarden-cluster
+    method: volumeSnapshot
+    schedule: "0 0 0 * * *"
+    backupOwnerReference: cluster
+    immediate: true

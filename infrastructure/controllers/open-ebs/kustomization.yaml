@@ -5,3 +5,4 @@ resources:
     - repository.yaml
     - release.yaml
     - storage-class.yaml
+    - snapshot-class.yaml
