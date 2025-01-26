@@ -30,7 +30,7 @@ spec:
         size: 10Gi
     walStorage:
         storageClass: openebs-zfspv
-        size: 10Gi
+        size: 2Gi
 
     backup:
         # Volume snapshot backups
