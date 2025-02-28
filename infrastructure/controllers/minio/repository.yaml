@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: minio-repo
+    namespace: minio
+spec:
+    type: default
+    url: https://operator.min.io
+    interval: 5m
