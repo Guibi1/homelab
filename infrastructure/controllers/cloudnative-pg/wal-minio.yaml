@@ -27,5 +27,7 @@ spec:
             prometheusOperator: true
 
             pools:
-              - servers: 1
+              - name: pool-0
+                servers: 1
                 storageClassName: openebs-zfspv
+                size: 50Gi
