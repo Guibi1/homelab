@@ -14,9 +14,9 @@ spec:
     postgresql:
         parameters:
             shared_buffers: 256MB
-            pg_stat_statements.max: '10000'
+            pg_stat_statements.max: "10000"
             pg_stat_statements.track: all
-            auto_explain.log_min_duration: '10s'
+            auto_explain.log_min_duration: "10s"
 
     bootstrap:
         initdb:
@@ -33,6 +33,20 @@ spec:
         size: 10Gi
 
     backup:
+        retentionPolicy: "30d"
+        barmanObjectStore:
+            destinationPath: s3://nextcloud/
+            endpointURL: https://cnpg-wal-minio.cnpg.svc.cluster.local:443
+            s3Credentials:
+                accessKeyId:
+                    name: cnpg-wal-minio-credentials
+                    key: MINIO_ROOT_USER
+                secretAccessKey:
+                    name: cnpg-wal-minio-credentials
+                    key: MINIO_ROOT_PASSWORD
+            wal:
+                compression: snappy
+
         # Volume snapshot backups
         volumeSnapshot:
             className: openebs-zfspv-snapshot

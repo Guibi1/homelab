@@ -19,10 +19,13 @@ spec:
 
     values:
         tenant:
-            name: cnpg
+            name: cnpg-wal-minio
             buckets:
               - name: nextcloud
               - name: vaultwarden
+
+            configSecret:
+                name: cnpg-wal-minio-credentials
 
             prometheusOperator: true
 
