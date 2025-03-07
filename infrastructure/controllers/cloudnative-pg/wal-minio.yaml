@@ -34,3 +34,14 @@ spec:
                 servers: 1
                 storageClassName: openebs-zfspv
                 size: 50Gi
+
+---
+apiVersion: v1
+kind: Secret
+type: kubernetes.io/basic-auth
+metadata:
+    name: cnpg-wal-minio-credentials
+    namespace: cnpg
+data:
+    MINIO_ROOT_USER: Y25wZw==
+    MINIO_ROOT_PASSWORD: NFFxVlBSd0UzWGU4ekImJCQ3ZUN0U2omajg=
