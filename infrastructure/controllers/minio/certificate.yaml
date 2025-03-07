@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: minio-ca-certificate
+    namespace: minio
+spec:
+    isCA: true
+    commonName: minio-ca
+    secretName: minio-ca-tls
+    duration: 70128h # 8y
+    privateKey:
+        algorithm: ECDSA
+        size: 256
+    issuerRef:
+        kind: ClusterIssuer
+        name: issuer-selfsigned
+        group: cert-manager.io
+
+---
+kind: Issuer
+metadata:
+    name: minio-ca-issuer
+    namespace: minio
+spec:
+    ca:
+        secretName: minio-ca-tls
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: sts-certmanager-cert
+    namespace: minio
+spec:
+    dnsNames:
+      - sts
+      - sts.minio.svc
+      - sts.minio.svc.cluster.local
+    secretName: sts-tls
+    issuerRef:
+        name: minio-ca-issuer

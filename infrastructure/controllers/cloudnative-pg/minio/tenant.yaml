@@ -26,6 +26,12 @@ spec:
 
             configuration:
                 name: cnpg-wal-minio-credentials
+                
+            certificate:
+                requestAutoCert: false
+                externalCertSecret:
+                  - name: cnpg-minio-tenant-tls
+                    type: cert-manager.io/v1
 
             prometheusOperator: true
 

@@ -1,0 +1,45 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: cnpg-minio-tenant-ca-cert
+    namespace: cnpg
+spec:
+    isCA: true
+    commonName: cnpg-minio-tenant-ca
+    secretName: cnpg-minio-tenant-ca-tls
+    duration: 70128h # 8y
+    privateKey:
+        algorithm: ECDSA
+        size: 256
+    issuerRef:
+        name: selfsigned-root
+        kind: ClusterIssuer
+        group: cert-manager.io
+
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: cnpg-minio-tenant-ca-issuer
+  namespace: cnpg
+spec:
+  ca:
+    secretName: cnpg-minio-tenant-ca-tls
+    
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: cnpg-minio-tenant-cert
+    namespace: cnpg
+spec:
+    dnsNames:
+      - "minio.cnpg"
+      - "minio.cnpg.svc"
+      - 'minio.cnpg.svc.cluster.local'
+      - '*.minio.cnpg.svc.cluster.local'
+      - '*.cnpg-wal-minio-hl.cnpg.svc.cluster.local'
+      - '*.cnpg-wal-minio.minio.cnpg.svc.cluster.local'
+    secretName: cnpg-minio-tenant-tls
+    issuerRef:
+        name: cnpg-minio-tenant-ca-issuer
