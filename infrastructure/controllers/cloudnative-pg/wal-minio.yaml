@@ -27,9 +27,6 @@ spec:
             configuration:
                 name: cnpg-wal-minio-credentials
 
-            configSecret:
-                name: cnpg-wal-minio-credentials
-
             prometheusOperator: true
 
             pools:
@@ -37,3 +34,17 @@ spec:
                 servers: 1
                 storageClassName: openebs-zfspv
                 size: 50Gi
+
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: cnpg-wal-minio-credentials
+    namespace: cnpg
+stringData:
+    MINIO_USER: cloudnative-pg
+    MINIO_PASSWORD: cloudnative-pg
+    config.env: |-
+        export MINIO_ROOT_USER='cloudnative-pg'
+        export MINIO_ROOT_PASSWORD='cloudnative-pg'

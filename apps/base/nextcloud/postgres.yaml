@@ -40,10 +40,10 @@ spec:
             s3Credentials:
                 accessKeyId:
                     name: cnpg-wal-minio-credentials
-                    key: MINIO_ROOT_USER
+                    key: MINIO_USER
                 secretAccessKey:
                     name: cnpg-wal-minio-credentials
-                    key: MINIO_ROOT_PASSWORD
+                    key: MINIO_PASSWORD
             wal:
                 compression: snappy
 
