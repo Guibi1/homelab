@@ -24,6 +24,9 @@ spec:
               - name: nextcloud
               - name: vaultwarden
 
+            configuration:
+                name: cnpg-wal-minio-credentials
+
             configSecret:
                 name: cnpg-wal-minio-credentials
 
