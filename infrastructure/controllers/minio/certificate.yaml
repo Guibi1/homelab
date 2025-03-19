@@ -17,6 +17,7 @@ spec:
         group: cert-manager.io
 
 ---
+apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
     name: minio-ca-issuer
