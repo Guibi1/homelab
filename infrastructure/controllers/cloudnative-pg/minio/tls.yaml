@@ -12,9 +12,9 @@ spec:
         algorithm: ECDSA
         size: 256
     issuerRef:
-        name: selfsigned-root
-        kind: ClusterIssuer
         group: cert-manager.io
+        kind: ClusterIssuer
+        name: issuer-selfsigned
 
 ---
 apiVersion: cert-manager.io/v1
@@ -25,7 +25,7 @@ metadata:
 spec:
   ca:
     secretName: cnpg-minio-tenant-ca-tls
-    
+
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
