@@ -26,7 +26,11 @@ spec:
 
             configuration:
                 name: cnpg-wal-minio-credentials
-                
+
+            configSecret:
+                name: cnpg-wal-minio-credentials
+                existingSecret: true
+
             certificate:
                 requestAutoCert: false
                 externalCertSecret:
