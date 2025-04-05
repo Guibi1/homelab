@@ -29,6 +29,8 @@ spec:
 
             configSecret:
                 name: cnpg-wal-minio-credentials
+                accessKey: null
+                secretKey: null
                 existingSecret: true
 
             certificate:
