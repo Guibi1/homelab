@@ -56,3 +56,7 @@ metadata:
 stringData:
     CONSOLE_ACCESS_KEY: cloudnative-pg
     CONSOLE_SECRET_KEY: cloudnative-pg
+    MINIO_PASSWORD: cloudnative-pg
+    config.env: |-
+        export MINIO_ROOT_USER='cloudnative-pg'
+        export MINIO_ROOT_PASSWORD='cloudnative-pg'
