@@ -36,7 +36,7 @@ spec:
         retentionPolicy: "30d"
         barmanObjectStore:
             destinationPath: s3://nextcloud/
-            endpointURL: https://cnpg-wal-minio-hl.cnpg.svc.cluster.local:9000
+            endpointURL: https://minio.cnpg.svc.cluster.local
             endpointCA:
                 name: cnpg-minio-tenant-ca-tls
                 key: ca.crt  
