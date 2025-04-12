@@ -24,14 +24,13 @@ spec:
               - name: nextcloud
               - name: vaultwarden
 
-            configuration:
-                name: cnpg-wal-minio-credentials
+            users:
+              - name: cnpg-wal-minio-user-credentials
 
             configSecret:
-                name: cnpg-wal-minio-credentials
-                accessKey: null
-                secretKey: null
-                existingSecret: true
+                name: cnpg-wal-minio-admin-credentials
+                accessKey: admin
+                secretKey: minio-admin
 
             certificate:
                 requestAutoCert: false
@@ -52,11 +51,8 @@ apiVersion: v1
 kind: Secret
 type: Opaque
 metadata:
-    name: cnpg-wal-minio-credentials
+    name: cnpg-wal-minio-user-credentials
     namespace: cnpg
 stringData:
-    MINIO_USER: cloudnative-pg
-    MINIO_PASSWORD: cloudnative-pg
-    config.env: |-
-        export MINIO_ROOT_USER='cloudnative-pg'
-        export MINIO_ROOT_PASSWORD='cloudnative-pg'
+    CONSOLE_ACCESS_KEY: cloudnative-pg
+    CONSOLE_SECRET_KEY: cloudnative-pg
