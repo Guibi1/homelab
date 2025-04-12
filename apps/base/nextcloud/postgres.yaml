@@ -42,10 +42,10 @@ spec:
                 key: ca.crt  
             s3Credentials:
                 accessKeyId:
-                    name: cnpg-wal-minio-user-credentials
+                    name: cnpg-wal-minio-credentials
                     key: CONSOLE_ACCESS_KEY
                 secretAccessKey:
-                    name: cnpg-wal-minio-user-credentials
+                    name: cnpg-wal-minio-credentials
                     key: CONSOLE_SECRET_KEY
             wal:
                 compression: snappy

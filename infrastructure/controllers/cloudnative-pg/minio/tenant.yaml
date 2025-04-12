@@ -25,12 +25,11 @@ spec:
               - name: vaultwarden
 
             users:
-              - name: cnpg-wal-minio-user-credentials
+              - name: cnpg-wal-minio-credentials
 
             configSecret:
-                name: cnpg-wal-minio-admin-credentials
-                accessKey: admin
-                secretKey: minio-admin
+                name: cnpg-wal-minio-credentials
+                existingSecret: true
 
             certificate:
                 requestAutoCert: false
@@ -51,12 +50,11 @@ apiVersion: v1
 kind: Secret
 type: Opaque
 metadata:
-    name: cnpg-wal-minio-user-credentials
+    name: cnpg-wal-minio-credentials
     namespace: cnpg
 stringData:
     CONSOLE_ACCESS_KEY: cloudnative-pg
     CONSOLE_SECRET_KEY: cloudnative-pg
-    MINIO_PASSWORD: cloudnative-pg
     config.env: |-
-        export MINIO_ROOT_USER='cloudnative-pg'
-        export MINIO_ROOT_PASSWORD='cloudnative-pg'
+        export MINIO_ROOT_USER='cnpg-wal-minio'
+        export MINIO_ROOT_PASSWORD='cnpg-wal-minio'
