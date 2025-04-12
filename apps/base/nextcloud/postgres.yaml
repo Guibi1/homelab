@@ -37,6 +37,9 @@ spec:
         barmanObjectStore:
             destinationPath: s3://nextcloud/
             endpointURL: https://cnpg-wal-minio-hl.cnpg.svc.cluster.local:9000
+            endpointCA:
+                name: cnpg-minio-tenant-ca-tls
+                key: ca.crt  
             s3Credentials:
                 accessKeyId:
                     name: cnpg-wal-minio-credentials
