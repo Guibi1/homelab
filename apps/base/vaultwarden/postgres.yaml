@@ -28,11 +28,28 @@ spec:
     storage:
         storageClass: openebs-zfspv
         size: 10Gi
-    # walStorage:
-    #     storageClass: openebs-zfspv
-    #     size: 10Gi
+    walStorage:
+        storageClass: openebs-zfspv
+        size: 10Gi
 
     backup:
+        retentionPolicy: "14d"
+        barmanObjectStore:
+            destinationPath: s3://vaultwarden/
+            endpointURL: https://minio.cnpg.svc.cluster.local
+            endpointCA:
+                name: cnpg-minio-tenant-ca-tls
+                key: ca.crt  
+            s3Credentials:
+                accessKeyId:
+                    name: cnpg-wal-minio-credentials
+                    key: CONSOLE_ACCESS_KEY
+                secretAccessKey:
+                    name: cnpg-wal-minio-credentials
+                    key: CONSOLE_SECRET_KEY
+            wal:
+                compression: snappy
+
         # Volume snapshot backups
         volumeSnapshot:
             className: openebs-zfspv-snapshot
