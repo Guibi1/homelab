@@ -24,8 +24,10 @@ spec:
               - name: nextcloud
               - name: vaultwarden
               
-            configuration:
-                name: cnpg-wal-minio-config
+            configSecret:
+                name: cnpg-wal-minio-credentials
+                accessKey: cnpg-wal-minio
+                secretKey: cnpg-wal-minio
 
             users:
               - name: cnpg-wal-minio-credentials
@@ -43,18 +45,6 @@ spec:
                 servers: 1
                 storageClassName: openebs-zfspv
                 size: 50Gi
-
----
-apiVersion: v1
-kind: Secret
-type: Opaque
-metadata:
-    name: cnpg-wal-minio-config
-    namespace: cnpg
-stringData:
-    config.env: |-
-        export MINIO_ROOT_USER="cnpg-wal-minio"
-        export MINIO_ROOT_PASSWORD="cnpg-wal-minio"
 
 ---
 apiVersion: v1
