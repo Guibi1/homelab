@@ -23,15 +23,12 @@ spec:
             buckets:
               - name: nextcloud
               - name: vaultwarden
+              
+            configuration:
+                name: cnpg-wal-minio-config
 
             users:
               - name: cnpg-wal-minio-credentials
-
-            configSecret:
-                name: cnpg-wal-minio-credentials
-                accessKey: null
-                secretKey: null
-                existingSecret: true
 
             certificate:
                 requestAutoCert: false
@@ -52,11 +49,20 @@ apiVersion: v1
 kind: Secret
 type: Opaque
 metadata:
-    name: cnpg-wal-minio-credentials
+    name: cnpg-wal-minio-config
     namespace: cnpg
 stringData:
+    config.env: |-
+        export MINIO_ROOT_USER="cnpg-wal-minio"
+        export MINIO_ROOT_PASSWORD="cnpg-wal-minio"
+
+---
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+    name: cnpg-wal-minio-credentials
+    namespace: cnpg
+data:
     CONSOLE_ACCESS_KEY: Y25wZw==
     CONSOLE_SECRET_KEY: Y25wZzEyMzQ=
-    config.env: |-
-        export MINIO_ROOT_USER='cnpg-wal-minio'
-        export MINIO_ROOT_PASSWORD='cnpg-wal-minio'
