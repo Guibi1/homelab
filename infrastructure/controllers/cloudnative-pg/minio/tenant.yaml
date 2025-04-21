@@ -55,8 +55,8 @@ metadata:
     name: cnpg-wal-minio-credentials
     namespace: cnpg
 stringData:
-    CONSOLE_ACCESS_KEY: cloudnative-pg
-    CONSOLE_SECRET_KEY: cloudnative-pg
+    CONSOLE_ACCESS_KEY: Y25wZw==
+    CONSOLE_SECRET_KEY: Y25wZzEyMzQ=
     config.env: |-
         export MINIO_ROOT_USER='cnpg-wal-minio'
         export MINIO_ROOT_PASSWORD='cnpg-wal-minio'
