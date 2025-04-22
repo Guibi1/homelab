@@ -49,6 +49,9 @@ spec:
                     );
             phpConfigs:
                 opcache.interned_strings_buffer: "10"
+                
+        lifecycle:
+            postStartCommand: ["/bin/bash", "-c", "apt update -y && apt install -y ffmpeg"]
 
         internalDatabase:
             enabled: false
