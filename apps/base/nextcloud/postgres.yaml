@@ -19,6 +19,10 @@ spec:
             auto_explain.log_min_duration: "10s"
 
     bootstrap:
+        recovery:
+            backup:
+                name: nextcloud-cluster-backup-20250508000000
+
         initdb:
             database: nextcloud
             owner: nextcloud
