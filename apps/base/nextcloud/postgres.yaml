@@ -23,11 +23,11 @@ spec:
             backup:
                 name: nextcloud-cluster-backup-20250508000000
 
-        initdb:
-            database: nextcloud
-            owner: nextcloud
-            secret:
-                name: nextcloud-cluster-secret
+        # initdb:
+        #     database: nextcloud
+        #     owner: nextcloud
+        #     secret:
+        #         name: nextcloud-cluster-secret
 
     storage:
         storageClass: openebs-zfspv
