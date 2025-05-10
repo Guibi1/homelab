@@ -29,6 +29,10 @@ spec:
         storageClass: openebs-zfspv
         size: 10Gi
 
+    walStorage:
+        storageClass: openebs-zfspv
+        size: 10Gi
+
     backup:
         retentionPolicy: "14d"
         barmanObjectStore:
