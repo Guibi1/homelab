@@ -20,30 +20,16 @@ spec:
 
     bootstrap:
         recovery:
-            source: clusterBackup
             volumeSnapshots:
                 storage:
                     name: nextcloud-cluster-backup-20250508000000
                     kind: VolumeSnapshot
                     apiGroup: snapshot.storage.k8s.io
 
-    externalClusters:
-      - name: clusterBackup
-        barmanObjectStore:
-            destinationPath: s3://nextcloud/
-        endpointURL: https://minio.cnpg.svc.cluster.local
-        endpointCA:
-            name: cnpg-minio-tenant-ca-tls
-            key: ca.crt  
-        s3Credentials:
-            accessKeyId:
-                name: cnpg-wal-minio-credentials
-                key: CONSOLE_ACCESS_KEY
-            secretAccessKey:
-                name: cnpg-wal-minio-credentials
-                key: CONSOLE_SECRET_KEY
-            wal:
-                maxParallel: 8
+                walStorage:
+                    name: nextcloud-cluster-backup-20250508000000-wal
+                    kind: VolumeSnapshot
+                    apiGroup: snapshot.storage.k8s.io
 
         # initdb:
         #     database: nextcloud
@@ -54,6 +40,9 @@ spec:
     storage:
         storageClass: openebs-zfspv
         size: 10Gi
+
+    walStorage:
+        storageClass: openebs-zfspv
 
     backup:
         retentionPolicy: "14d"
