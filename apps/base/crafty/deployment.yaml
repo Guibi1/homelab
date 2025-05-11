@@ -68,7 +68,7 @@ spec:
           volumes:
             - name: backups
               hostPath:
-                  path: "/mnt/Data/MinecraftBackups"
+                  path: "/mnt/Data/Backups/Minecraft"
                   type: Directory
             - name: servers
               hostPath:
