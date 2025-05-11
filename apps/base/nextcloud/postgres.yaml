@@ -21,6 +21,11 @@ spec:
     bootstrap:
         recovery:
             source: clusterBackup
+            volumeSnapshots:
+                storage:
+                    name: nextcloud-cluster-backup-20250508000000
+                    kind: VolumeSnapshot
+                    apiGroup: snapshot.storage.k8s.io
 
         externalClusters:
           - name: clusterBackup
