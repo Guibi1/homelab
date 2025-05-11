@@ -43,6 +43,7 @@ spec:
 
     walStorage:
         storageClass: openebs-zfspv
+        size: 50Gi
 
     backup:
         retentionPolicy: "14d"
