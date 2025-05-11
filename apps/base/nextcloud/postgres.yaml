@@ -20,8 +20,25 @@ spec:
 
     bootstrap:
         recovery:
-            backup:
-                name: nextcloud-cluster-backup-20250508000000
+            source: clusterBackup
+
+        externalClusters:
+          - name: clusterBackup
+            barmanObjectStore:
+                destinationPath: s3://nextcloud/
+            endpointURL: https://minio.cnpg.svc.cluster.local
+            endpointCA:
+                name: cnpg-minio-tenant-ca-tls
+                key: ca.crt  
+            s3Credentials:
+                accessKeyId:
+                    name: cnpg-wal-minio-credentials
+                    key: CONSOLE_ACCESS_KEY
+                secretAccessKey:
+                    name: cnpg-wal-minio-credentials
+                    key: CONSOLE_SECRET_KEY
+                wal:
+                    maxParallel: 8
 
         # initdb:
         #     database: nextcloud
