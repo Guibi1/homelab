@@ -5,8 +5,8 @@ metadata:
     namespace: cnpg
 spec:
     description: "Vaultwarden cluster"
-    imageName: ghcr.io/cloudnative-pg/postgresql:16.2
-    instances: 1
+    imageName: ghcr.io/cloudnative-pg/postgresql:17.4
+    instances: 3
     startDelay: 300
     stopDelay: 300
     primaryUpdateStrategy: unsupervised
@@ -31,7 +31,7 @@ spec:
 
     walStorage:
         storageClass: openebs-zfspv
-        size: 10Gi
+        size: 50Gi
 
     backup:
         retentionPolicy: "14d"
@@ -40,7 +40,7 @@ spec:
             endpointURL: https://minio.cnpg.svc.cluster.local
             endpointCA:
                 name: cnpg-minio-tenant-ca-tls
-                key: ca.crt  
+                key: ca.crt
             s3Credentials:
                 accessKeyId:
                     name: cnpg-wal-minio-credentials
