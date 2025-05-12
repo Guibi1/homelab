@@ -2,10 +2,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../base/cloudflare-ddns
-  - ../base/prometheus
 
   - ../base/crafty
   - ../base/home-assistant
-  - ../base/jackett
+  # - ../base/jackett
   # - ../base/nextcloud
   # - ../base/vaultwarden

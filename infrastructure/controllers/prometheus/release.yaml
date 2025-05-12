@@ -2,7 +2,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
     name: prometheus
-    namespace: monitoring
+    namespace: default
 spec:
     releaseName: prometheus
     chart:
@@ -11,7 +11,7 @@ spec:
             sourceRef:
                 kind: HelmRepository
                 name: prometheus-repo
-                namespace: monitoring
+                namespace: default
     interval: 50m
     install:
         remediation:
