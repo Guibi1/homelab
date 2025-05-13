@@ -56,6 +56,7 @@ This allows production and staging environments to apply custom patches.
 ## Setup
 
 ```sh
+kubectl create secret generic cloudflare-api-token-secret --namespace cert-manager --from-literal=api-token='YOUR_API_TOKEN'
 export GITHUB_TOKEN=<your-token>
 ```
 
