@@ -4,5 +4,3 @@ resources:
   - cert-manager
   - open-ebs
   - prometheus
-  - minio
-  - cloudnative-pg
