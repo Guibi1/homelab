@@ -21,7 +21,7 @@ spec:
         zfs-localpv:
             zfs:
                 # If you use a non-standard path to the zfs binary, specify it here (NixOS)
-                bin: /run/current-system/sw/bin
+                bin: /run/current-system/sw/bin/zfs
         engines:
             local:
                 lvm:
