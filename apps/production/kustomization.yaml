@@ -8,6 +8,5 @@ resources:
 
   - ../base/crafty
   - ../base/home-assistant
-  # - ../base/jackett
-  # - ../base/nextcloud
-  # - ../base/vaultwarden
+  - ../base/nextcloud
+  - ../base/vaultwarden
