@@ -17,7 +17,7 @@ The Git repository contains the following top directories:
 ```
 ├── apps
 │   ├── base
-│   ├── production 
+│   ├── production
 │   └── staging
 ├── infrastructure
 │   ├── configs
@@ -56,7 +56,6 @@ This allows production and staging environments to apply custom patches.
 ## Setup
 
 ```sh
-kubectl create secret generic cloudflare-api-token-secret --namespace cert-manager --from-literal=api-token='YOUR_API_TOKEN'
 export GITHUB_TOKEN=<your-token>
 ```
 
@@ -77,6 +76,23 @@ flux bootstrap github \
     --path=clusters/production
 ```
 
+Create secrets:
+
+```sh
+kubectl create secret generic cloudflare-api-token-secret --namespace cert-manager --from-literal=api-token='YOUR_API_TOKEN'
+```
+
+Setup minio tenant:
+
+```sh
+kubectl get secrets -n cnpg cnpg-minio-tenant-ca-tls -o=jsonpath='{.data.ca\.crt}' | base64 -d > ca.crt
+kubectl create secret generic -n minio operator-ca-tls-cnpg --from-file=ca.crt
+
+kubectl port-forward -n cnpg svc/minio 9000:443 &
+mc --insecure admin user add local cnpg cnpg1234
+mc --insecure admin policy attach local readwrite -u cnpg
+```
+
 ## Managing
 
 You can see all the HelmReleases' status using this command:
@@ -84,7 +100,7 @@ You can see all the HelmReleases' status using this command:
 ```console
 $ watch flux get helmreleases --all-namespaces
 
-NAMESPACE    	NAME         	REVISION	SUSPENDED	READY	MESSAGE 
+NAMESPACE    	NAME         	REVISION	SUSPENDED	READY	MESSAGE
 cert-manager 	cert-manager 	v1.11.0 	False    	True 	Release reconciliation succeeded
 ingress-nginx	ingress-nginx	4.4.2   	False    	True 	Release reconciliation succeeded
 podinfo      	podinfo      	6.3.0   	False    	True 	Release reconciliation succeeded
@@ -95,11 +111,11 @@ Watch the pods reconciliation:
 ```console
 $ flux get kustomizations --watch
 
-NAME             	REVISION     	SUSPENDED	READY	MESSAGE                         
-apps             	main/696182e	False    	True 	Applied revision: main/696182e	
-flux-system      	main/696182e	False    	True 	Applied revision: main/696182e	
-infra-configs    	main/696182e	False    	True 	Applied revision: main/696182e	
-infra-controllers	main/696182e	False    	True 	Applied revision: main/696182e	
+NAME             	REVISION     	SUSPENDED	READY	MESSAGE
+apps             	main/696182e	False    	True 	Applied revision: main/696182e
+flux-system      	main/696182e	False    	True 	Applied revision: main/696182e
+infra-configs    	main/696182e	False    	True 	Applied revision: main/696182e
+infra-controllers	main/696182e	False    	True 	Applied revision: main/696182e
 ```
 
 ## Add clusters
@@ -125,7 +141,7 @@ cp clusters/staging/apps.yaml clusters/dev
 ```
 
 You could create a dev overlay inside `apps`, make sure
-to change the `spec.path` inside `clusters/dev/apps.yaml` to `path: ./apps/dev`. 
+to change the `spec.path` inside `clusters/dev/apps.yaml` to `path: ./apps/dev`.
 
 Push the changes to the main branch:
 
@@ -152,5 +168,5 @@ a pull requests is merged into the main branch and synced on the cluster.
 
 This repository contains the following GitHub CI workflows:
 
-* the [test](./.github/workflows/test.yaml) workflow validates the Kubernetes manifests and Kustomize overlays with [kubeconform](https://github.com/yannh/kubeconform)
-* the [e2e](./.github/workflows/e2e.yaml) workflow starts a Kubernetes cluster in CI and tests the staging setup by running Flux in Kubernetes Kind. DISABLED BECAUSE OF HOSTPATH
+- the [test](./.github/workflows/test.yaml) workflow validates the Kubernetes manifests and Kustomize overlays with [kubeconform](https://github.com/yannh/kubeconform)
+- the [e2e](./.github/workflows/e2e.yaml) workflow starts a Kubernetes cluster in CI and tests the staging setup by running Flux in Kubernetes Kind. DISABLED BECAUSE OF HOSTPATH
