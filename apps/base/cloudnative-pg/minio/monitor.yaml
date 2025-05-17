@@ -4,7 +4,7 @@ metadata:
     name: minio-servicemonitor
     namespace: monitoring
     labels:
-        release: prometheus-kube-prometheus-prometheus
+        release: prometheus
 spec:
     selector:
         matchLabels:
