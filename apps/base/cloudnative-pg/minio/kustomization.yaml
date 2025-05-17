@@ -4,3 +4,4 @@ namespace: cnpg
 resources:
   - tls.yaml
   - tenant.yaml
+  - monitor.yaml
