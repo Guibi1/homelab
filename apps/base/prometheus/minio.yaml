@@ -1,0 +1,33 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+    name: prometheus
+    namespace: monitoring
+spec:
+    additionalScrapeConfigs:
+        name: prometheus-minio-scrape-config
+        key: minio-config.yaml
+    volumes:
+      - name: minio-ca-cert
+        secret:
+            secretName: cnpg-minio-tenant-ca-tls
+    volumeMounts:
+      - name: minio-ca-cert
+        mountPath: /etc/prometheus/certs/minio
+        readOnly: true
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+    name: prometheus-minio-scrape-config
+    namespace: monitoring
+stringData:
+  minio-config.yaml: |
+    - job_name: 'minio'
+      metrics_path: /minio/v2/metrics/cluster
+      scheme: https
+      static_configs:
+        - targets: ['minio.cnpg.svc.cluster.local:443']
+      tls_config:
+          ca_file: /etc/prometheus/certs/minio/tls.crt

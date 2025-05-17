@@ -38,7 +38,7 @@ spec:
                   - name: cnpg-minio-tenant-tls
                     type: cert-manager.io/v1
 
-            prometheusOperator: true
+            # prometheusOperator: true
 
             metrics:
                 enabled: true
