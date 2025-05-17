@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: minio-servicemonitor
+    namespace: monitoring
+    labels:
+        release: prometheus-kube-prometheus-prometheus
+spec:
+    selector:
+        matchLabels:
+            v1.min.io/tenant: cnpg-wal-minio
+    namespaceSelector:
+        matchNames:
+          - cnpg
+    endpoints:
+      - port: https-minio
+        path: /minio/v2/metrics/cluster
+        scheme: https
+        interval: 30s
+        tlsConfig:
+            insecureSkipVerify: true
