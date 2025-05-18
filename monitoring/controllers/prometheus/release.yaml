@@ -5,9 +5,13 @@ metadata:
     namespace: monitoring
 spec:
     releaseName: prometheus
-    chartRef:
-        kind: OCIRepository
-        name: kube-prometheus-stack
+    chart:
+        spec:
+            chart: kube-prometheus-stack
+            sourceRef:
+                kind: HelmRepository
+                name: prometheus-repo
+                namespace: monitoring
     interval: 50m
     install:
         crds: Create
