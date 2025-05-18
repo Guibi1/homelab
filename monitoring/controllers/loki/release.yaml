@@ -8,12 +8,13 @@ spec:
   dependsOn:
     - name: prometheus
   chart:
-    spec:
-      version: "6.x"
-      chart: loki
-      sourceRef:
-        kind: HelmRepository
-        name: grafana-charts
+      spec:
+          version: "6.x"
+          chart: loki
+          sourceRef:
+                kind: HelmRepository
+                name: grafana-repo
+                namespace: monitoring
       interval: 60m
   values:
     chunksCache:

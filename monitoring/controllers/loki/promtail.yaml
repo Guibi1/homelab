@@ -14,7 +14,8 @@ spec:
             chart: promtail
             sourceRef:
                 kind: HelmRepository
-                name: grafana-charts
+                name: grafana-repo
+                namespace: monitoring
             interval: 60m
     values:
         # https://grafana.com/docs/loki/latest/send-data/promtail/installation/
