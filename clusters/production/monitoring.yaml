@@ -5,7 +5,8 @@ metadata:
     namespace: flux-system
 spec:
     interval: 1h
-    retryInterval: 2m
+    retryInterval: 1m
+    timeout: 5m
     dependsOn:
       - name: infra-configs
     sourceRef:
@@ -14,7 +15,6 @@ spec:
     path: ./monitoring/controllers
     prune: true
     wait: true
-    timeout: 10m
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -24,7 +24,8 @@ metadata:
     namespace: flux-system
 spec:
     interval: 1h
-    retryInterval: 2m
+    retryInterval: 1m
+    timeout: 5m
     dependsOn:
       - name: monitoring-controllers
     sourceRef:
@@ -33,4 +34,3 @@ spec:
     path: ./monitoring/configs
     prune: true
     wait: true
-    timeout: 5m
