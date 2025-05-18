@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: prometheus
+    namespace: monitoring
+spec:
+    releaseName: prometheus
+    chartRef:
+        kind: OCIRepository
+        name: kube-prometheus-stack
+    interval: 50m
+    install:
+        crds: Create
+    upgrade:
+        crds: CreateReplace
+
+    driftDetection:
+        mode: enabled
+        ignore:
+          # Ignore "validated" annotation which is not inserted during install
+          - paths: ["/metadata/annotations/prometheus-operator-validated"]
+            target:
+                kind: PrometheusRule
+
+    valuesFrom:
+      - kind: ConfigMap
+        name: flux-kube-state-metrics-config
+        valuesKey: kube-state-metrics-config.yaml
+
+    values:
+        prometheus:
+            prometheusSpec:
+                podMonitorSelectorNilUsesHelmValues: false
+                serviceMonitorSelectorNilUsesHelmValues: false
+
+                resources:
+                    requests:
+                        cpu: 200m
+                        memory: 200Mi
+
+        grafana:
+            defaultDashboardsEnabled: false
+
+            ingress:
+                enabled: true
+                ingressClassName: traefik
+                annotations:
+                    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                    traefik.ingress.kubernetes.io/router.tls: "true"
+                hosts:
+                  - srv.guibi.dev
+                tls:
+                  - hosts:
+                      - srv.guibi.dev
+                    secretName: tls-guibi.dev
