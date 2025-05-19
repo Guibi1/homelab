@@ -1,18 +1,14 @@
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
-    name: wal-minio
+    name: cnpg-wal-minio
     namespace: cnpg
-    labels:
-        release: prometheus
 spec:
-    selector:
-        matchLabels:
-            v1.min.io/tenant: cnpg-wal-minio
-    namespaceSelector:
-        matchNames:
-          - cnpg
-    endpoints:
+  selector:
+      matchLabels:
+          v1.min.io/tenant: cnpg-wal-minio
+  namespaceSelector: {}
+  podMetricsEndpoints:
       - port: https-minio
         path: /minio/v2/metrics/cluster
         scheme: https

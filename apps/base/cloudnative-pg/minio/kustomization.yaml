@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - tls.yaml
   - tenant.yaml
-  # - monitor.yaml
+  - podmonitor.yaml
