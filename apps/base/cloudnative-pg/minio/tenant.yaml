@@ -40,11 +40,6 @@ spec:
                     
             prometheusOperator: true
 
-            metrics:
-                enabled: true
-                port: 9000
-                protocol: http
-
             pools:
               - name: pool
                 servers: 3
