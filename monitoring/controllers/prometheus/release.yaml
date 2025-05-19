@@ -13,18 +13,6 @@ spec:
                 name: prometheus-repo
                 namespace: monitoring
     interval: 50m
-    install:
-        crds: Create
-    upgrade:
-        crds: CreateReplace
-
-    driftDetection:
-        mode: enabled
-        ignore:
-          # Ignore "validated" annotation which is not inserted during install
-          - paths: ["/metadata/annotations/prometheus-operator-validated"]
-            target:
-                kind: PrometheusRule
 
     valuesFrom:
       - kind: ConfigMap

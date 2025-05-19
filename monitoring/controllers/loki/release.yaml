@@ -8,14 +8,13 @@ spec:
   dependsOn:
     - name: prometheus
   chart:
-      spec:
-          version: "6.x"
-          chart: loki
-          sourceRef:
-                kind: HelmRepository
-                name: grafana-repo
-                namespace: monitoring
-          interval: 60m
+    spec:
+      chart: loki
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-repo
+        namespace: monitoring
+      interval: 60m
   values:
     chunksCache:
       enabled: false
@@ -34,7 +33,7 @@ spec:
             chart: loki
             release: loki
             grafana_datasource: "1"
-            app.kubernetes.io/part-of: kube-prometheus-stack
+            app.kubernetes.io/part-of: prometheus
         data:
           loki-datasource.yaml: |-
             apiVersion: 1
@@ -50,7 +49,7 @@ spec:
       serviceMonitor:
         enabled: true
         labels:
-          app.kubernetes.io/part-of: kube-prometheus-stack
+          app.kubernetes.io/part-of: prometheus
       limits_config:
         allow_structured_metadata: true
         retention_period: 24h
