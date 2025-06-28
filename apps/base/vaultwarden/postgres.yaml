@@ -10,6 +10,7 @@ spec:
     startDelay: 300
     stopDelay: 300
     primaryUpdateStrategy: unsupervised
+    enableSuperuserAccess: true
 
     postgresql:
         parameters:
