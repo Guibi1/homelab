@@ -22,8 +22,6 @@ spec:
         initdb:
             database: nextcloud
             owner: nextcloud
-            secret:
-                name: nextcloud-cluster-secret
 
     storage:
         storageClass: openebs-zfspv
@@ -36,7 +34,12 @@ spec:
     backup:
         retentionPolicy: "14d"
         barmanObjectStore:
-            destinationPath: s3://nextcloud/
+            data:
+                compression: snappy
+            wal:
+                compression: snappy
+                maxParallel: 8
+            destinationPath: s3://nextcloud/backup
             endpointURL: https://minio.cnpg.svc.cluster.local
             endpointCA:
                 name: cnpg-minio-tenant-ca-tls
@@ -48,12 +51,6 @@ spec:
                 secretAccessKey:
                     name: cnpg-wal-minio-credentials
                     key: CONSOLE_SECRET_KEY
-            wal:
-                compression: snappy
-
-        # Volume snapshot backups
-        volumeSnapshot:
-            className: openebs-zfspv-snapshot
 
     monitoring:
         enablePodMonitor: true
@@ -73,28 +70,3 @@ spec:
     nodeMaintenanceWindow:
         inProgress: false
         reusePVC: false
-
----
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/basic-auth
-metadata:
-    name: nextcloud-cluster-secret
-    namespace: cnpg
-data:
-    username: bmV4dGNsb3Vk
-    password: bmV4dGNsb3Vk
-
----
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-    name: nextcloud-cluster-backup
-    namespace: cnpg
-spec:
-    cluster:
-        name: nextcloud-cluster
-    method: volumeSnapshot
-    schedule: "0 0 0 * * *"
-    backupOwnerReference: cluster
-    immediate: true

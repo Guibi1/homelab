@@ -5,6 +5,8 @@ metadata:
     namespace: apps
 spec:
     releaseName: nextcloud
+    dependsOn:
+      - name: nextcloud-cluster
     chart:
         spec:
             chart: nextcloud
@@ -60,9 +62,12 @@ spec:
             enabled: true
             type: postgresql
             host: nextcloud-cluster-rw.cnpg.svc.cluster.local:5432
-            database: nextcloud
-            user: nextcloud
-            password: nextcloud
+            existingSecret:
+                enabled: true
+                secretName: nextcloud-cluster-app
+                databaseKey: dbname
+                usernameKey: username
+                passwordKey: password
 
         redis:
             enabled: true
