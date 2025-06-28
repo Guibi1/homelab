@@ -7,6 +7,7 @@ spec:
     releaseName: nextcloud
     dependsOn:
       - name: nextcloud-cluster
+        namespace: cnpg
     chart:
         spec:
             chart: nextcloud
