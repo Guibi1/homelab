@@ -60,6 +60,7 @@ spec:
               - host: jellyfin.guibi.dev
                 paths:
                   - path: /
+                    pathType: ImplementationSpecific
             tls:
               - secretName: tls-guibi.dev
                 hosts:
