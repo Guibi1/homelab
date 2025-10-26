@@ -1,7 +1,7 @@
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: PersistentVolume
 metadata:
-    name: jellyfin-media-pvc
+    name: jellyfin-media-pv
     namespace: apps
 spec:
     capacity:
@@ -16,7 +16,23 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-    name: jellyfin-config-pvc
+    name: jellyfin-media-pvc
+    namespace: apps
+spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+        requests:
+            storage: 3000Gi
+    volumeName: jellyfin-media-pv
+    storageClassName: ""
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: jellyfin-config-pv
     namespace: apps
 spec:
     capacity:
@@ -24,4 +40,20 @@ spec:
     accessModes:
       - ReadWriteOnce
     hostPath:
-        path: /mnt/SSD/app-storage/home-assistant
+        path: /mnt/SSD/app-storage/jellyfin
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: jellyfin-config-pvc
+    namespace: apps
+spec:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+        requests:
+            storage: 100Gi
+    volumeName: jellyfin-config-pv
+    storageClassName: ""
