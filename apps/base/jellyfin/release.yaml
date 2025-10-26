@@ -50,14 +50,17 @@ spec:
 
         service:
             type: ClusterIP
-            port: 8096
 
         ingress:
             enabled: true
             annotations:
-              traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              traefik.ingress.kubernetes.io/router.tls: "true"
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
+            hosts:
+              - host: jellyfin.guibi.dev
+                paths:
+                  - path: /
             tls:
-              - hosts:
+              - secretName: tls-guibi.dev
+                hosts:
                   - jellyfin.guibi.dev
-                secretName: tls-guibi.dev

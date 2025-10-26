@@ -49,7 +49,7 @@ spec:
                     );
             phpConfigs:
                 opcache.interned_strings_buffer: "10"
-                
+
         lifecycle:
             postStartCommand: ["/bin/bash", "-c", "apt update -y && apt install -y ffmpeg"]
 
@@ -84,9 +84,9 @@ spec:
         ingress:
             enabled: true
             annotations:
-              traefik.ingress.kubernetes.io/router.entrypoints: websecure
-              traefik.ingress.kubernetes.io/router.tls: "true"
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
             tls:
-              - hosts:
+              - secretName: tls-guibi.dev
+                hosts:
                   - cloud.guibi.dev
-                secretName: tls-guibi.dev
