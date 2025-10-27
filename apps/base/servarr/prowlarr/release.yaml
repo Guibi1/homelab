@@ -18,4 +18,4 @@ spec:
             retries: 3
     values:
         metrics:
-            enabled: true
+            enabled: false
