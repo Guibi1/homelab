@@ -3,6 +3,6 @@ kind: Kustomization
 resources:
   - repository.yaml
   - transmission
-  - prowlarr
+  - radarr
   # - sonarr
-  # - radarr
+  - prowlarr
