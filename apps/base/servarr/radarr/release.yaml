@@ -16,7 +16,10 @@ spec:
     install:
         remediation:
             retries: 3
+
     values:
+        application:
+            urlBase: /
         deployment:
             volumes:
                 config:
@@ -39,11 +42,9 @@ spec:
             annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
-            hosts:
-              - host: radarr.guibi.dev
-                paths:
-                  - path: /
-                    pathType: ImplementationSpecific
+            host: radarr.guibi.dev
+            path: /
+            pathType: ImplementationSpecific
             tls:
               - secretName: tls-guibi.dev
                 hosts:

@@ -16,9 +16,13 @@ spec:
     install:
         remediation:
             retries: 3
+
     values:
         deployment:
             volumes:
                 downloads:
                     persistentVolumeClaim:
                         claimName: transmission-download-pvc
+
+        ingress:
+            enabled: false

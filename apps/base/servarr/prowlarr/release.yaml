@@ -19,3 +19,6 @@ spec:
     values:
         metrics:
             enabled: false
+
+        ingress:
+            enabled: false
