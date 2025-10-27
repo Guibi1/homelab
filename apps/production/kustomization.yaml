@@ -9,4 +9,5 @@ resources:
   - ../base/home-assistant
   - ../base/jellyfin
   - ../base/nextcloud
+  - ../base/servarr
   - ../base/vaultwarden
