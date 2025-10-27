@@ -25,10 +25,10 @@ spec:
                 config:
                     persistentVolumeClaim:
                         claimName: radarr-config-pvc
-                downloads:
+                film:
                     persistentVolumeClaim:
                         claimName: radarr-media-pvc
-                film:
+                downloads:
                     persistentVolumeClaim:
                         claimName: transmission-download-pvc
 
