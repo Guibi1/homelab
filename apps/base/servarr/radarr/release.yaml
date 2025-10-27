@@ -29,6 +29,8 @@ spec:
                     persistentVolumeClaim:
                         claimName: transmission-download-pvc
 
+        persistentVolumeClaims: []
+
         metrics:
             enabled: false
 
