@@ -16,6 +16,7 @@ spec:
                 name: grafana-repo
                 namespace: monitoring
             interval: 60m
+
     values:
         config:
             clients:
