@@ -5,14 +5,13 @@ metadata:
     namespace: apps
 spec:
     capacity:
-        storage: 3000Gi
+        storage: 2000Gi
     accessModes:
       - ReadWriteOnce
     hostPath:
         path: /mnt/Data/Media/Films
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -23,12 +22,11 @@ spec:
       - ReadWriteOnce
     resources:
         requests:
-            storage: 3000Gi
+          storage: 2000Gi
     volumeName: radarr-media-pv
     storageClassName: ""
 
 ---
-
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -36,14 +34,13 @@ metadata:
     namespace: apps
 spec:
     capacity:
-        storage: 100Gi
+        storage: 1Gi
     accessModes:
       - ReadWriteOnce
     hostPath:
         path: /mnt/SSD/app-storage/radarr
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -54,6 +51,6 @@ spec:
       - ReadWriteOnce
     resources:
         requests:
-            storage: 100Gi
+            storage: 1Gi
     volumeName: radarr-config-pv
-    storageClassName: open
+    storageClassName: ""
