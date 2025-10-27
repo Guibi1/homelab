@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: prowlarr
+    namespace: apps
+spec:
+    releaseName: prowlarr
+    chart:
+        spec:
+            chart: prowlarr
+            sourceRef:
+                kind: HelmRepository
+                name: servarr-repo
+                namespace: apps
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+    values:
+        metrics:
+            enabled: true
