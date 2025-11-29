@@ -35,7 +35,7 @@ spec:
         persistentVolumeClaims: []
 
         metrics:
-            enabled: false
+            enabled: true
 
         ingress:
             enabled: true

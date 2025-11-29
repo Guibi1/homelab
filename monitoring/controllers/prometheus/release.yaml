@@ -31,7 +31,7 @@ spec:
                         memory: 200Mi
 
         grafana:
-            defaultDashboardsEnabled: false
+            # defaultDashboardsEnabled: false
 
             ingress:
                 enabled: true

@@ -42,11 +42,11 @@ spec:
 
         metrics:
             enabled: true
-            # serviceMonitor:
-            #     enabled: true
-            #     namespace: monitoring
-            #     interval: 30s
-            #     scrapeTimeout: 10s
+            serviceMonitor:
+                enabled: true
+                namespace: monitoring
+                interval: 30s
+                scrapeTimeout: 10s
 
         service:
             type: ClusterIP
