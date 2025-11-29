@@ -31,7 +31,15 @@ spec:
                         memory: 200Mi
 
         grafana:
-            # defaultDashboardsEnabled: false
+            persistence:
+                enabled: true
+                type: sts
+                storageClassName: openebs-zfspv
+                accessModes:
+                  - ReadWriteOnce
+                size: 20Gi
+                finalizers:
+                  - kubernetes.io/pvc-protection
 
             ingress:
                 enabled: true
