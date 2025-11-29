@@ -8,4 +8,3 @@ resources:
   - insecure-transport.yaml
 
   - apps-namespace.yaml
-  - truecharts-repository.yaml
