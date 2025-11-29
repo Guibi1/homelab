@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: spire-repo
+    namespace: spire
+spec:
+    type: default
+    url: https://spiffe.github.io/helm-charts-hardened
+    interval: 5m

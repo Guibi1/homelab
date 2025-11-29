@@ -1,0 +1,18 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: spire-crds
+    namespace: spire
+spec:
+    releaseName: spire-crds
+    chart:
+        spec:
+            chart: spire-crds
+            sourceRef:
+                kind: HelmRepository
+                name: spire-repo
+                namespace: spire
+    interval: 50m
+    install:
+        remediation:
+            retries: 3

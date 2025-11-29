@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: spire
+    namespace: spire
+spec:
+    releaseName: spire
+    chart:
+        spec:
+            chart: spire
+            sourceRef:
+                kind: HelmRepository
+                name: spire-repo
+                namespace: spire
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+
+    values:
+        global:
+            openshift: false
+
+            spire:
+                recommendations:
+                    enabled: true
+
+                namespaces:
+                    create: true
+
+                persistence:
+                    storageClass: openebs-zfspv
+
+                ingressControllerType: traefik
+                clusterName: apollon-cluster
+                trustDomain: cluster.local
+                caSubject:
+                    country: CA
+                    organization: Kubernetes
+                    commonName: spire-ca.cluster.local
