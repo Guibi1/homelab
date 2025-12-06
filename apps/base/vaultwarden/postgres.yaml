@@ -37,6 +37,11 @@ spec:
     backup:
         retentionPolicy: "14d"
         barmanObjectStore:
+            data:
+                compression: snappy
+            wal:
+                compression: snappy
+                maxParallel: 8
             destinationPath: s3://vaultwarden/
             endpointURL: https://minio.cnpg.svc.cluster.local
             endpointCA:
@@ -49,8 +54,6 @@ spec:
                 secretAccessKey:
                     name: cnpg-wal-minio-credentials
                     key: CONSOLE_SECRET_KEY
-            wal:
-                compression: snappy
 
         # Volume snapshot backups
         volumeSnapshot:

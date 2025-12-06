@@ -53,6 +53,10 @@ spec:
                     name: cnpg-wal-minio-credentials
                     key: CONSOLE_SECRET_KEY
 
+        # Volume snapshot backups
+        volumeSnapshot:
+            className: openebs-zfspv-snapshot
+
     monitoring:
         enablePodMonitor: true
 
@@ -71,3 +75,17 @@ spec:
     nodeMaintenanceWindow:
         inProgress: false
         reusePVC: false
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+    name: nextcloud-cluster-backup
+    namespace: cnpg
+spec:
+    cluster:
+        name: nextcloud-cluster
+    method: volumeSnapshot
+    schedule: "0 0 0 * * *"
+    backupOwnerReference: cluster
+    immediate: true
