@@ -7,7 +7,7 @@ spec:
     releaseName: seerr
     chart:
         spec:
-            chart: seerr
+            chart: seerr-chart
             sourceRef:
                 kind: HelmRepository
                 name: seerr-repo
