@@ -34,7 +34,7 @@ spec:
 
         secrets:
           - name: apiKey
-            value: radarr-api-key
+            value: d11c7839ad5a183da80e9de80665561f
 
         persistentVolumeClaims: []
 

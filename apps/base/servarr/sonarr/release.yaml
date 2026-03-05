@@ -34,7 +34,7 @@ spec:
 
         secrets:
           - name: apiKey
-            value: sonarr-api-key
+            value: 9c047f68d2574e30242e1291fc0c5c91
 
         persistentVolumeClaims: []
 

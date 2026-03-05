@@ -25,8 +25,8 @@ spec:
                         claimName: transmission-download-pvc
 
         secrets:
-          - name: apiKey
-            value: transmission-api-key
+          - name: rpcPassword
+            value: 46913a88e825a3f4b612699c67964cbe
 
         ingress:
             enabled: false
