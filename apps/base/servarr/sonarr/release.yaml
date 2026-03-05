@@ -32,6 +32,10 @@ spec:
                     persistentVolumeClaim:
                         claimName: transmission-download-pvc
 
+        secrets:
+          - name: apiKey
+            value: sonarr-api-key
+
         persistentVolumeClaims: []
 
         metrics:

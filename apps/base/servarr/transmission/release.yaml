@@ -24,5 +24,9 @@ spec:
                     persistentVolumeClaim:
                         claimName: transmission-download-pvc
 
+        secrets:
+          - name: apiKey
+            value: transmission-api-key
+
         ingress:
             enabled: false
