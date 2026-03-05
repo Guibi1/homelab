@@ -42,4 +42,14 @@ spec:
             enabled: true
 
         ingress:
-            enabled: false
+            enabled: true
+            annotations:
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
+            host: radarr.guibi.dev
+            path: /
+            pathType: ImplementationSpecific
+            tls:
+              - secretName: tls-guibi.dev
+                hosts:
+                  - radarr.guibi.dev
