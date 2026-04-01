@@ -25,40 +25,10 @@ spec:
             owner: nextcloud
 
     storage:
-        storageClass: openebs-zfspv
         size: 10Gi
 
     walStorage:
-        storageClass: openebs-zfspv
-        size: 50Gi
-
-    backup:
-        retentionPolicy: "14d"
-        barmanObjectStore:
-            data:
-                compression: snappy
-            wal:
-                compression: snappy
-                maxParallel: 8
-            destinationPath: s3://nextcloud/backup
-            endpointURL: https://minio.cnpg.svc.cluster.local
-            endpointCA:
-                name: cnpg-minio-tenant-ca-tls
-                key: ca.crt
-            s3Credentials:
-                accessKeyId:
-                    name: cnpg-wal-minio-credentials
-                    key: CONSOLE_ACCESS_KEY
-                secretAccessKey:
-                    name: cnpg-wal-minio-credentials
-                    key: CONSOLE_SECRET_KEY
-
-        # Volume snapshot backups
-        volumeSnapshot:
-            className: openebs-zfspv-snapshot
-
-    monitoring:
-        enablePodMonitor: true
+        size: 5Gi
 
     resources:
         requests:
@@ -68,13 +38,19 @@ spec:
             memory: "1Gi"
             cpu: 1000m
 
+    plugins:
+      - name: barman-cloud.cloudnative-pg.io
+        isWALArchiver: true
+        parameters:
+            barmanObjectName: cloudnative-pg-backups-store
+            serverName: nextcloud-cluster
+
+    monitoring:
+        enablePodMonitor: true
+
     affinity:
         enablePodAntiAffinity: true
         topologyKey: failure-domain.beta.kubernetes.io/zone
-
-    nodeMaintenanceWindow:
-        inProgress: false
-        reusePVC: false
 
 ---
 apiVersion: postgresql.cnpg.io/v1
@@ -83,9 +59,9 @@ metadata:
     name: nextcloud-cluster-backup
     namespace: cnpg
 spec:
+    backupOwnerReference: self
     cluster:
         name: nextcloud-cluster
-    method: volumeSnapshot
-    schedule: "0 0 0 * * *"
-    backupOwnerReference: cluster
-    immediate: true
+    method: plugin
+    pluginConfiguration:
+        name: barman-cloud.cloudnative-pg.io

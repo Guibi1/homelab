@@ -1,12 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-    name: cnpg-wal-minio
+    name: cnpg-minio-tenant
     namespace: cnpg
 spec:
   selector:
       matchLabels:
-          v1.min.io/tenant: cnpg-wal-minio
+          v1.min.io/tenant: cnpg-minio-tenant
   namespaceSelector: {}
   podMetricsEndpoints:
       - port: https-minio

@@ -1,0 +1,25 @@
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+    name: cloudnative-pg-backups-store
+    namespace: cnpg
+spec:
+    retentionPolicy: "14d"
+    configuration:
+        destinationPath: s3://cnpg-backups/
+        endpointURL: https://minio.cnpg.svc.cluster.local
+        endpointCA:
+            name: cnpg-minio-tenant-ca-tls
+            key: ca.crt
+        s3Credentials:
+            accessKeyId:
+                name: cnpg-minio-tenant-credentials
+                key: CONSOLE_ACCESS_KEY
+            secretAccessKey:
+                name: cnpg-minio-tenant-credentials
+                key: CONSOLE_SECRET_KEY
+        data:
+            compression: snappy
+        wal:
+            compression: snappy
+            maxParallel: 8

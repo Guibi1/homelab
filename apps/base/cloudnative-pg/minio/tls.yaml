@@ -38,8 +38,8 @@ spec:
       - "minio.cnpg.svc"
       - 'minio.cnpg.svc.cluster.local'
       - '*.minio.cnpg.svc.cluster.local'
-      - '*.cnpg-wal-minio-hl.cnpg.svc.cluster.local'
-      - '*.cnpg-wal-minio.minio.cnpg.svc.cluster.local'
+      - '*.cnpg-minio-tenant-hl.cnpg.svc.cluster.local'
+      - '*.cnpg-minio-tenant.minio.cnpg.svc.cluster.local'
     secretName: cnpg-minio-tenant-tls
     issuerRef:
         name: cnpg-minio-tenant-ca-issuer
