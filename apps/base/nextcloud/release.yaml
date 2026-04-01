@@ -21,12 +21,12 @@ spec:
             host: cloud.guibi.dev
             datadir: /var/www/html/data
             extraEnv:
-              - name: overwrite.cli.url
-                value: https://cloud.guibi.dev
-              - name: TRUSTED_PROXIES
-                value: 10.42.0.0/16
-              - name: APACHE_DISABLE_REWRITE_IP
-                value: "1"
+                - name: overwrite.cli.url
+                  value: https://cloud.guibi.dev
+                - name: TRUSTED_PROXIES
+                  value: 10.42.0.0/16
+                - name: APACHE_DISABLE_REWRITE_IP
+                  value: "1"
             configs:
                 general.config.php: |-
                     <?php
@@ -87,6 +87,6 @@ spec:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
             tls:
-              - secretName: tls-guibi.dev
-                hosts:
-                  - cloud.guibi.dev
+                - secretName: tls-guibi.dev
+                  hosts:
+                      - cloud.guibi.dev

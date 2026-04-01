@@ -6,7 +6,7 @@ spec:
     capacity:
         storage: 200Gi
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     hostPath:
         path: /mnt/Data/Media/Downloads
 
@@ -18,9 +18,9 @@ metadata:
     namespace: apps
 spec:
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     resources:
         requests:
-          storage: 200Gi
+            storage: 200Gi
     volumeName: transmission-download-pv
     storageClassName: ""

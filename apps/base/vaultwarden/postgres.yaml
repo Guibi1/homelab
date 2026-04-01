@@ -41,11 +41,11 @@ spec:
             cpu: 1000m
 
     plugins:
-      - name: barman-cloud.cloudnative-pg.io
-        isWALArchiver: true
-        parameters:
-            barmanObjectName: cloudnative-pg-backups-store
-            serverName: vaultwarden-cluster
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: cloudnative-pg-backups-store
+              serverName: vaultwarden-cluster
 
     monitoring:
         enablePodMonitor: true

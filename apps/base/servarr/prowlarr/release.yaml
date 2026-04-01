@@ -18,8 +18,8 @@ spec:
             retries: 3
     values:
         secrets:
-          - name: apiKey
-            value: 6ad80c0e1ce3f4c3a630e24d417708c4
+            - name: apiKey
+              value: 6ad80c0e1ce3f4c3a630e24d417708c4
 
         metrics:
             enabled: true

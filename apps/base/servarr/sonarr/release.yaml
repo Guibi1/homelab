@@ -33,8 +33,8 @@ spec:
                         claimName: transmission-download-pvc
 
         secrets:
-          - name: apiKey
-            value: 9c047f68d2574e30242e1291fc0c5c91
+            - name: apiKey
+              value: 9c047f68d2574e30242e1291fc0c5c91
 
         persistentVolumeClaims: []
 
@@ -50,6 +50,6 @@ spec:
             path: /
             pathType: ImplementationSpecific
             tls:
-              - secretName: tls-guibi.dev
-                hosts:
-                  - sonarr.guibi.dev
+                - secretName: tls-guibi.dev
+                  hosts:
+                      - sonarr.guibi.dev

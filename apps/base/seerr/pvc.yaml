@@ -7,12 +7,11 @@ spec:
     capacity:
         storage: 2Gi
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     hostPath:
         path: /mnt/SSD/app-storage/seerr
 
 ---
-
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -20,7 +19,7 @@ metadata:
     namespace: apps
 spec:
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     resources:
         requests:
             storage: 2Gi

@@ -8,6 +8,6 @@ spec:
     selector:
         app: home-assistant
     ports:
-      - name: webui
-        port: 8123
-        protocol: TCP
+        - name: webui
+          port: 8123
+          protocol: TCP

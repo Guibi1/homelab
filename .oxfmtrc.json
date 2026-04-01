@@ -1,0 +1,4 @@
+{
+    "ignorePatterns": ["flux-system/"],
+    "tabWidth": 4
+}

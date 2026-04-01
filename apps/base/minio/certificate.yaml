@@ -34,9 +34,9 @@ metadata:
     namespace: minio
 spec:
     dnsNames:
-      - sts
-      - sts.minio.svc
-      - sts.minio.svc.cluster.local
+        - sts
+        - sts.minio.svc
+        - sts.minio.svc.cluster.local
     secretName: sts-tls
     issuerRef:
         name: minio-ca-issuer

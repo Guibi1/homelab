@@ -10,17 +10,17 @@ spec:
     template:
         metadata:
             labels:
-              app: cloudflare-ddns
+                app: cloudflare-ddns
         spec:
-          containers:
-            - name: cloudflare-ddns
-              image: favonia/cloudflare-ddns:latest
-              imagePullPolicy: IfNotPresent
-              env:
-                - name: CLOUDFLARE_API_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      name: cloudflare-api-token-secret
-                      key: api-token
-                - name: DOMAINS
-                  value: "srv.guibi.dev"
+            containers:
+                - name: cloudflare-ddns
+                  image: favonia/cloudflare-ddns:latest
+                  imagePullPolicy: IfNotPresent
+                  env:
+                      - name: CLOUDFLARE_API_TOKEN
+                        valueFrom:
+                            secretKeyRef:
+                                name: cloudflare-api-token-secret
+                                key: api-token
+                      - name: DOMAINS
+                        value: "srv.guibi.dev"

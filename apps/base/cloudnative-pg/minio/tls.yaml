@@ -20,11 +20,11 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: cnpg-minio-tenant-ca-issuer
-  namespace: cnpg
+    name: cnpg-minio-tenant-ca-issuer
+    namespace: cnpg
 spec:
-  ca:
-    secretName: cnpg-minio-tenant-ca-tls
+    ca:
+        secretName: cnpg-minio-tenant-ca-tls
 
 ---
 apiVersion: cert-manager.io/v1
@@ -34,12 +34,12 @@ metadata:
     namespace: cnpg
 spec:
     dnsNames:
-      - "minio.cnpg"
-      - "minio.cnpg.svc"
-      - 'minio.cnpg.svc.cluster.local'
-      - '*.minio.cnpg.svc.cluster.local'
-      - '*.cnpg-minio-tenant-hl.cnpg.svc.cluster.local'
-      - '*.cnpg-minio-tenant.minio.cnpg.svc.cluster.local'
+        - "minio.cnpg"
+        - "minio.cnpg.svc"
+        - "minio.cnpg.svc.cluster.local"
+        - "*.minio.cnpg.svc.cluster.local"
+        - "*.cnpg-minio-tenant-hl.cnpg.svc.cluster.local"
+        - "*.cnpg-minio-tenant.minio.cnpg.svc.cluster.local"
     secretName: cnpg-minio-tenant-tls
     issuerRef:
         name: cnpg-minio-tenant-ca-issuer

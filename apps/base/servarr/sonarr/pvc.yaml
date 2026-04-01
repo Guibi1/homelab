@@ -6,7 +6,7 @@ spec:
     capacity:
         storage: 2000Gi
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     hostPath:
         path: /mnt/Data/Media
 
@@ -18,10 +18,10 @@ metadata:
     namespace: apps
 spec:
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     resources:
         requests:
-          storage: 2000Gi
+            storage: 2000Gi
     volumeName: sonarr-media-pv
     storageClassName: ""
 
@@ -34,7 +34,7 @@ spec:
     capacity:
         storage: 1Gi
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     hostPath:
         path: /mnt/SSD/app-storage/sonarr
 
@@ -46,7 +46,7 @@ metadata:
     namespace: apps
 spec:
     accessModes:
-      - ReadWriteOnce
+        - ReadWriteOnce
     resources:
         requests:
             storage: 1Gi

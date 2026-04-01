@@ -20,8 +20,8 @@ spec:
         jellyfin:
             enableDLNA: false
             env:
-              - name: TZ
-                value: "America/Toronto"
+                - name: TZ
+                  value: "America/Toronto"
 
         persistence:
             config:
@@ -57,11 +57,11 @@ spec:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
             hosts:
-              - host: jellyfin.guibi.dev
-                paths:
-                  - path: /
-                    pathType: ImplementationSpecific
+                - host: jellyfin.guibi.dev
+                  paths:
+                      - path: /
+                        pathType: ImplementationSpecific
             tls:
-              - secretName: tls-guibi.dev
-                hosts:
-                  - jellyfin.guibi.dev
+                - secretName: tls-guibi.dev
+                  hosts:
+                      - jellyfin.guibi.dev

@@ -4,4 +4,4 @@ metadata:
     name: insecure-transport
     namespace: apps
 spec:
-    insecureSkipVerify: true  # Skip verification of the self-signed cert
+    insecureSkipVerify: true # Skip verification of the self-signed cert

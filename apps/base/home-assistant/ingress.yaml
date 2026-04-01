@@ -5,15 +5,15 @@ metadata:
     namespace: apps
 spec:
     entryPoints:
-      - websecure
+        - websecure
     routes:
-      - match: Host(`hass.guibi.dev`)
-        kind: Rule
-        services:
-          - name: home-assistant
-            namespace: apps
-            port: 8123
-            scheme: https
-            serversTransport: insecure-transport
+        - match: Host(`hass.guibi.dev`)
+          kind: Rule
+          services:
+              - name: home-assistant
+                namespace: apps
+                port: 8123
+                scheme: https
+                serversTransport: insecure-transport
     tls:
         secretName: tls-guibi.dev

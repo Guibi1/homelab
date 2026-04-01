@@ -5,15 +5,15 @@ metadata:
     namespace: apps
 spec:
     entryPoints:
-      - websecure
+        - websecure
     routes:
-      - match: Host(`crafty.guibi.dev`)
-        kind: Rule
-        services:
-          - name: crafty
-            namespace: apps
-            port: 443
-            scheme: https
-            serversTransport: insecure-transport
+        - match: Host(`crafty.guibi.dev`)
+          kind: Rule
+          services:
+              - name: crafty
+                namespace: apps
+                port: 443
+                scheme: https
+                serversTransport: insecure-transport
     tls:
         secretName: tls-guibi.dev

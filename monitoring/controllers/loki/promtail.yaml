@@ -7,7 +7,7 @@ spec:
     interval: 5m
     timeout: 1m
     dependsOn:
-      - name: prometheus
+        - name: prometheus
     chart:
         spec:
             chart: promtail
@@ -20,5 +20,5 @@ spec:
     values:
         config:
             clients:
-              - url: http://loki-gateway/loki/api/v1/push
-                tenant_id: 1
+                - url: http://loki-gateway/loki/api/v1/push
+                  tenant_id: 1

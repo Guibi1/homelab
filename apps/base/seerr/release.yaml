@@ -35,11 +35,11 @@ spec:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
             hosts:
-              - host: seerr.guibi.dev
-                paths:
-                  - path: /
-                    pathType: ImplementationSpecific
+                - host: seerr.guibi.dev
+                  paths:
+                      - path: /
+                        pathType: ImplementationSpecific
             tls:
-              - secretName: tls-guibi.dev
-                hosts:
-                  - seerr.guibi.dev
+                - secretName: tls-guibi.dev
+                  hosts:
+                      - seerr.guibi.dev

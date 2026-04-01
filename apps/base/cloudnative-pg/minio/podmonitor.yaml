@@ -4,14 +4,14 @@ metadata:
     name: cnpg-minio-tenant
     namespace: cnpg
 spec:
-  selector:
-      matchLabels:
-          v1.min.io/tenant: cnpg-minio-tenant
-  namespaceSelector: {}
-  podMetricsEndpoints:
-      - port: https-minio
-        path: /minio/v2/metrics/cluster
-        scheme: https
-        interval: 30s
-        tlsConfig:
-            insecureSkipVerify: true
+    selector:
+        matchLabels:
+            v1.min.io/tenant: cnpg-minio-tenant
+    namespaceSelector: {}
+    podMetricsEndpoints:
+        - port: https-minio
+          path: /minio/v2/metrics/cluster
+          scheme: https
+          interval: 30s
+          tlsConfig:
+              insecureSkipVerify: true
