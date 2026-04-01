@@ -59,6 +59,7 @@ metadata:
     name: nextcloud-cluster-backup
     namespace: cnpg
 spec:
+    schedule: "0 0 0 * * *"
     backupOwnerReference: self
     cluster:
         name: nextcloud-cluster

@@ -72,6 +72,7 @@ metadata:
     name: vaultwarden-cluster-backup
     namespace: cnpg
 spec:
+    schedule: "0 0 0 * * *"
     backupOwnerReference: self
     cluster:
         name: vaultwarden-cluster
