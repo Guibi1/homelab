@@ -1,0 +1,57 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: nats
+    namespace: opencloud
+spec:
+    releaseName: nats
+    chart:
+        spec:
+            chart: nats
+            sourceRef:
+                kind: HelmRepository
+                name: nats-repo
+                namespace: opencloud
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+    values:
+        config:
+            cluster:
+                enabled: true
+                replicas: 3
+                merge:
+                    name: opencloud-cluster
+
+            jetstream:
+                enabled: true
+                fileStore:
+                    enabled: true
+                    dir: /data
+                    pvc:
+                        enabled: true
+                        size: 10Gi
+
+        container:
+            resources:
+                requests:
+                    cpu: 100m
+                    memory: 128Mi
+                limits:
+                    cpu: 500m
+                    memory: 512Mi
+
+        podTemplate:
+            topologySpreadConstraints:
+                kubernetes.io/hostname:
+                    maxSkew: 1
+                    whenUnsatisfiable: ScheduleAnyway
+
+        promExporter:
+            enabled: true
+            podMonitor:
+                enabled: true
+
+        natsBox:
+            enabled: false

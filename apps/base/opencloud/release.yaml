@@ -38,6 +38,12 @@ spec:
                 s3:
                     enabled: false
 
+            nats:
+                external:
+                    enabled: true
+                    endpoint: nats.opencloud.svc.cluster.local:4222
+                    cluster: opencloud-cluster
+
         ingress:
             enabled: true
             annotations:
