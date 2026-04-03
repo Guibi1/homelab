@@ -32,6 +32,9 @@ spec:
                     pvc:
                         enabled: true
                         size: 10Gi
+                memoryStore:
+                    enabled: true
+                    maxSize: 256Mi
 
         container:
             resources:
