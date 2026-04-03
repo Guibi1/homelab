@@ -46,6 +46,9 @@ spec:
                     endpoint: nats.opencloud.svc.cluster.local:4222
                     cluster: opencloud-cluster
 
+        oidc:
+            enabled: false
+
         ingress:
             enabled: true
             annotations:
