@@ -23,6 +23,8 @@ spec:
                 oidc: auth.guibi.dev
 
         opencloud:
+            excludeServices: []
+
             persistence:
                 config:
                     existingClaim: opencloud-config-pvc
