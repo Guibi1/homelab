@@ -28,12 +28,11 @@ spec:
                     existingClaim: opencloud-config-pvc
 
             storage:
-                systemDriver: "posix"
                 mode: "posixfs"
                 posixfs:
-                    enabled: true
                     idCacheStore: nats-js-kv
                     persistence:
+                        enabled: true
                         existingClaim: opencloud-data-pvc
                 s3:
                     enabled: false
