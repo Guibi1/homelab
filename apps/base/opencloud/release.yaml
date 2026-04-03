@@ -26,14 +26,17 @@ spec:
             persistence:
                 config:
                     existingClaim: opencloud-config-pvc
+                data:
+                    existingClaim: opencloud-data-pvc
 
             storage:
+                systemDriver: "decomposed"
                 mode: "posixfs"
                 posixfs:
                     idCacheStore: nats-js-kv
+                    rootPath: "/var/lib/opencloud/storage"
                     persistence:
-                        enabled: true
-                        existingClaim: opencloud-data-pvc
+                        enabled: false
                 s3:
                     enabled: false
 
