@@ -8,7 +8,7 @@ resources:
     - ../base/crafty
     - ../base/home-assistant
     - ../base/jellyfin
-    - ../base/nextcloud
+    - ../base/opencloud
     - ../base/seerr
     - ../base/servarr
     - ../base/vaultwarden

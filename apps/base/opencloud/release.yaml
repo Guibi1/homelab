@@ -1,0 +1,49 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: opencloud
+    namespace: opencloud
+spec:
+    releaseName: opencloud
+    chart:
+        spec:
+            chart: opencloud
+            sourceRef:
+                kind: HelmRepository
+                name: opencloud-repo
+                namespace: opencloud
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+    values:
+        global:
+            domain:
+                opencloud: cloud.guibi.dev
+                oidc: auth.guibi.dev
+
+        opencloud:
+            persistence:
+                config:
+                    existingClaim: opencloud-config-pvc
+
+            storage:
+                systemDriver: "posix"
+                mode: "posixfs"
+                posixfs:
+                    enabled: true
+                    idCacheStore: nats-js-kv
+                    persistence:
+                        existingClaim: opencloud-data-pvc
+                s3:
+                    enabled: false
+
+        ingress:
+            enabled: true
+            annotations:
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
+            tls:
+                - secretName: tls-guibi.dev
+                  hosts:
+                      - cloud.guibi.dev
