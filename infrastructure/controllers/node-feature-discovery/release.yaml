@@ -7,7 +7,7 @@ spec:
     releaseName: node-feature-discovery
     chart:
         spec:
-            chart: nfd
+            chart: node-feature-discovery
             sourceRef:
                 kind: HelmRepository
                 name: nfd-repo

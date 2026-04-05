@@ -5,5 +5,5 @@ metadata:
     namespace: nfd
 spec:
     type: oci
-    url: oci://registry.k8s.io/nfd/charts/node-feature-discovery
+    url: oci://registry.k8s.io/nfd/charts
     interval: 5m
