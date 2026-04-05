@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: nfd-repo
+    namespace: nfd
+spec:
+    type: oci
+    url: oci://registry.k8s.io/nfd/charts/node-feature-discovery
+    interval: 5m

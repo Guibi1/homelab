@@ -1,0 +1,22 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+    name: node-feature-discovery
+    namespace: nfd
+spec:
+    releaseName: node-feature-discovery
+    chart:
+        spec:
+            chart: nfd
+            sourceRef:
+                kind: HelmRepository
+                name: nfd-repo
+                namespace: nfd
+    interval: 50m
+    install:
+        remediation:
+            retries: 3
+
+    values:
+        prometheus:
+            enabled: true
