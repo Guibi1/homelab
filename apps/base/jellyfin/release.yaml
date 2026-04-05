@@ -39,6 +39,7 @@ spec:
             limits:
                 memory: "2Gi"
                 cpu: 2000m
+                gpu.intel.com/i915: 1
 
         metrics:
             enabled: true
