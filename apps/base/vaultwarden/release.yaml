@@ -20,18 +20,12 @@ spec:
     values:
         domain: https://vault.guibi.dev/
 
+        adminToken:
+            value: "$argon2id$v=19$m=19456,t=2,p=1$UEdGQldwa2JZT3I5NlRlaGdLVDY3S0NDM1M4T3gySWQ0WlFHUDE4Wi9MWT0$lP5AIhWTO0wdWI5lZkkhXwlZyP/eyrm0zucrZXTkz+I"
+
         database:
             type: postgresql
             uriOverride: postgresql://vaultwarden:vaultwarden@vaultwarden-cluster-rw.cnpg.svc.cluster.local:5432/vaultwarden
-
-        ingress:
-            enabled: true
-            class: traefik
-            additionalAnnotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: websecure
-                traefik.ingress.kubernetes.io/router.tls: "true"
-            hostname: vault.guibi.dev
-            tlsSecret: tls-guibi.dev
 
         sso:
             enabled: true
@@ -45,3 +39,12 @@ spec:
                 existingSecretKey: SSO_CLIENT_ID
             clientSecret:
                 existingSecretKey: SSO_CLIENT_SECRET
+
+        ingress:
+            enabled: true
+            class: traefik
+            additionalAnnotations:
+                traefik.ingress.kubernetes.io/router.entrypoints: websecure
+                traefik.ingress.kubernetes.io/router.tls: "true"
+            hostname: vault.guibi.dev
+            tlsSecret: tls-guibi.dev
