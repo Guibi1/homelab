@@ -35,6 +35,7 @@ spec:
 
         sso:
             enabled: true
+            onlySSO: true
             signupsMatchEmail: true
             ignoreEmailVerification: true
             authority: https://auth.guibi.dev
