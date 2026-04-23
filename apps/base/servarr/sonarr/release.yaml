@@ -48,10 +48,10 @@ spec:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
                 traefik.ingress.kubernetes.io/router.middlewares: apps-pocket-id-auth-sonarr@kubernetescrd
-            host: seer.guibi.dev
+            host: seerr.guibi.dev
             path: /sonarr
             pathType: Prefix
             tls:
                 - secretName: tls-guibi.dev
                   hosts:
-                      - seer.guibi.dev
+                      - seerr.guibi.dev
