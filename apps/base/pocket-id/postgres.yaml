@@ -68,28 +68,6 @@ spec:
         name: barman-cloud.cloudnative-pg.io
 
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-    name: cnpg-minio-tenant-credentials
-    namespace: pocket-id
-    annotations:
-        reflector.v1.k8s.emberstack.com/reflects: "cnpg/cnpg-minio-tenant-credentials"
-type: Opaque
-data: {}
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-    name: cnpg-minio-tenant-ca-tls
-    namespace: pocket-id
-    annotations:
-        reflector.v1.k8s.emberstack.com/reflects: "cnpg/cnpg-minio-tenant-ca-tls"
-type: kubernetes.io/tls
-data: {}
-
----
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
