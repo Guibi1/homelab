@@ -19,7 +19,8 @@ spec:
 
     values:
         application:
-            urlBase: /
+            urlBase: /sonarr
+
         deployment:
             volumes:
                 config:
@@ -46,10 +47,11 @@ spec:
             annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
-            host: sonarr.guibi.dev
-            path: /
-            pathType: ImplementationSpecific
+                traefik.ingress.kubernetes.io/router.middlewares: apps-pocket-id-auth@kubernetescrd
+            host: seer.guibi.dev
+            path: /sonarr
+            pathType: Prefix
             tls:
                 - secretName: tls-guibi.dev
                   hosts:
-                      - sonarr.guibi.dev
+                      - seer.guibi.dev

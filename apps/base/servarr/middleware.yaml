@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: pocket-id-auth
+    namespace: apps
+spec:
+    oidc:
+        issuerUrl: https://auth.guibi.dev
+        clientIDRef:
+            name: pocket-id-auth-middleware-secret
+            key: clientID
+        clientSecretRef:
+            name: pocket-id-auth-middleware-secret
+            key: clientSecret
+        scopes:
+            - openid
+            - profile
+            - email
