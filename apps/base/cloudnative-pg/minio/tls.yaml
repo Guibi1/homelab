@@ -7,6 +7,10 @@ spec:
     isCA: true
     commonName: cnpg-minio-tenant-ca
     secretName: cnpg-minio-tenant-ca-tls
+    secretTemplate:
+        annotations:
+            reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+            reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "pocket-id"
     duration: 70128h # 8y
     privateKey:
         algorithm: ECDSA

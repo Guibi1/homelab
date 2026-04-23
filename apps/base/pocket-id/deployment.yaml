@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: pocket-id
+    namespace: pocket-id
+spec:
+    selector:
+        matchLabels:
+            app: pocket-id
+    template:
+        metadata:
+            labels:
+                app: pocket-id
+        spec:
+            containers:
+                - name: pocket-id
+                  image: ghcr.io/pocket-id/pocket-id:latest
+                  imagePullPolicy: IfNotPresent
+                  livenessProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  readinessProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  startupProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 30
+                      timeoutSeconds: 1
+                      periodSeconds: 5
+                  ports:
+                      - name: webui
+                        containerPort: 1411
+                        protocol: TCP
+                  env:
+                      - name: APP_URL
+                        value: https://auth.guibi.dev
+                      - name: TRUST_PROXY
+                        value: "true"
+                      - name: ENCRYPTION_KEY_FILE
+                        value: "/app/data/encryption.key"
+                      - name: DB_CONNECTION_STRING
+                        valueFrom:
+                            secretKeyRef:
+                                name: pocket-id-cluster-app
+                                key: uri
+                  volumeMounts:
+                      - name: data
+                        mountPath: "/app/data"
+
+            volumes:
+                - name: data
+                  hostPath:
+                      path: "/mnt/SSD/app-storage/pocket-id"
+                      type: Directory

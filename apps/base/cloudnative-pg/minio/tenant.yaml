@@ -58,6 +58,9 @@ type: Opaque
 metadata:
     name: cnpg-minio-tenant-credentials
     namespace: cnpg
+    annotations:
+        reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+        reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "pocket-id"
 data:
     CONSOLE_ACCESS_KEY: Y25wZw==
     CONSOLE_SECRET_KEY: Y25wZzEyMzQ=
