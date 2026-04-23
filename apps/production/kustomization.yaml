@@ -9,6 +9,7 @@ resources:
     - ../base/home-assistant
     - ../base/jellyfin
     - ../base/opencloud
+    - ../base/pocket-id
     - ../base/seerr
     - ../base/servarr
     - ../base/vaultwarden
