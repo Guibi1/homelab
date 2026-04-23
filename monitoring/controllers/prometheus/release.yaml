@@ -31,6 +31,10 @@ spec:
                         memory: 200Mi
 
         grafana:
+            grafana.ini:
+                server:
+                    root_url: https://srv.guibi.dev
+
             persistence:
                 enabled: true
                 type: sts
