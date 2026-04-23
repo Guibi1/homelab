@@ -44,6 +44,8 @@ spec:
                   env:
                       - name: APP_URL
                         value: https://auth.guibi.dev
+                      - name: EMAILS_VERIFIED
+                        value: "true"
                       - name: TRUSTED_PLATFORM
                         value: CF-Connecting-IP
                       - name: ENCRYPTION_KEY_FILE

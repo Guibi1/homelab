@@ -46,6 +46,17 @@ spec:
                     endpoint: nats.opencloud.svc.cluster.local:4222
                     cluster: opencloud-cluster
 
+            proxyRoleAssignmentOidcClaim: "groups"
+            config:
+                proxy:
+                    role_assignment:
+                        driver: oidc
+                        oidc_role_mapper:
+                            role_claim: groups
+                            role_mapping:
+                                - role_name: user
+                                  claim_value: "opencloud"
+
         oidc:
             enabled: false
             external:
