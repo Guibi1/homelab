@@ -32,3 +32,15 @@ spec:
                 traefik.ingress.kubernetes.io/router.tls: "true"
             hostname: vault.guibi.dev
             tlsSecret: tls-guibi.dev
+
+        sso:
+            enabled: true
+            signupsMatchEmail: true
+            ignoreEmailVerification: true
+            authority: https://auth.guibi.dev
+            scopes: "email profile groups offline_access"
+            existingSecret: vaultwarden-sso
+            clientId:
+                existingSecretKey: SSO_CLIENT_ID
+            clientSecret:
+                existingSecretKey: SSO_CLIENT_SECRET
