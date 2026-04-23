@@ -32,7 +32,7 @@ spec:
             annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
-                traefik.ingress.kubernetes.io/router.middlewares: apps-pocket-id-auth@kubernetescrd
+                traefik.ingress.kubernetes.io/router.middlewares: apps-pocket-id-auth-prowlarr@kubernetescrd
             host: seer.guibi.dev
             path: /prowlarr
             pathType: Prefix

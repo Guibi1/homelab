@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: pocket-id-auth-prowlarr
+    namespace: apps
+spec:
+    plugin:
+        oidc:
+            issuer: https://auth.guibi.dev
+            redirectUrl: /prowlarr/callback
+            clientID: urn:k8s:secret:pocket-id-auth-prowlarr:clientID
+            clientSecret: urn:k8s:secret:pocket-id-auth-prowlarr:clientSecret
+            scopes:
+                - openid
+                - profile
+                - email
