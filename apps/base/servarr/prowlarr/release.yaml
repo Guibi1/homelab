@@ -28,16 +28,4 @@ spec:
             enabled: true
 
         ingress:
-            enabled: true
-            annotations:
-                traefik.ingress.kubernetes.io/router.entrypoints: websecure
-                traefik.ingress.kubernetes.io/router.tls: "true"
-                traefik.ingress.kubernetes.io/router.middlewares: apps-pocket-id-auth-prowlarr@kubernetescrd
-                traefik.ingress.kubernetes.io/router.priority: "100"
-            host: seerr.guibi.dev
-            path: /prowlarr
-            pathType: Prefix
-            tls:
-                - secretName: tls-guibi.dev
-                  hosts:
-                      - seerr.guibi.dev
+            enabled: false
