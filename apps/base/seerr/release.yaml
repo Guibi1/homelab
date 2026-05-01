@@ -18,7 +18,8 @@ spec:
             retries: 3
     values:
         image:
-            tag: preview-new-oidc
+            sha: a14a9c326881fdce70b00df3fc095f5b5b128f5552677f677cd3788e757fb4e6
+            # tag: preview-new-oidc
 
         config:
             persistence:
