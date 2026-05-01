@@ -18,8 +18,7 @@ spec:
             retries: 3
     values:
         image:
-            repository: v3djg6gl/seerr
-            tag: feat-oidc-jellyfin-quickconnect
+            tag: preview-new-oidc
 
         config:
             persistence:
