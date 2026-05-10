@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: pocket-id
-                  image: ghcr.io/pocket-id/pocket-id:latest
+                  image: ghcr.io/11notes/pocket-id:2
                   imagePullPolicy: IfNotPresent
                   livenessProbe:
                       tcpSocket:
