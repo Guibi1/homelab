@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: actual-budget
+    namespace: actual-budget
+spec:
+    selector:
+        matchLabels:
+            app: actual-budget
+    template:
+        metadata:
+            labels:
+                app: actual-budget
+        spec:
+            containers:
+                - name: actual-budget
+                  image: ghcr.io/actualbudget/actual:latest-alpine
+                  imagePullPolicy: IfNotPresent
+                  securityContext:
+                      runAsUser: 10001
+                      runAsGroup: 10001
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
+                  livenessProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  readinessProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  startupProbe:
+                      tcpSocket:
+                          port: 1411
+                      initialDelaySeconds: 0
+                      failureThreshold: 30
+                      timeoutSeconds: 1
+                      periodSeconds: 5
+                  resources:
+                      limits:
+                          cpu: "0.25"
+                          memory: "256Mi"
+                      requests:
+                          cpu: "0.1"
+                          memory: "128Mi"
+                  ports:
+                      - name: webui
+                        containerPort: 5006
+                        protocol: TCP
+                  env:
+                      - name: APP_URL
+                        value: https://auth.guibi.dev
+                      - name: TRUSTED_PLATFORM
+                        value: CF-Connecting-IP
+                      - name: ENCRYPTION_KEY_FILE
+                        value: "/app/data/encryption.key"
+                      - name: DB_CONNECTION_STRING
+                        valueFrom:
+                            secretKeyRef:
+                                name: actual-budget-cluster-app
+                                key: uri
+                  volumeMounts:
+                      - name: data
+                        mountPath: "/data"
+
+            volumes:
+                - name: data
+                  hostPath:
+                      path: "/mnt/SSD/app-storage/actual-budget"
+                      type: Directory
+
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault

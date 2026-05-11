@@ -5,6 +5,7 @@ resources:
     - ../base/cloudnative-pg
     - ../base/cloudflare-ddns
 
+    - ../base/actual-budget
     - ../base/crafty
     - ../base/home-assistant
     - ../base/jellyfin

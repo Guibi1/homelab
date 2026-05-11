@@ -1,0 +1,32 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: actual-budget-ingress
+    namespace: actual-budget
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: Host(`budget.guibi.dev`)
+          kind: Rule
+          services:
+              - name: actual-budget
+                namespace: actual-budget
+                port: 5006
+                scheme: http
+    tls:
+        secretName: tls-certificate
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: tls-certificate
+    namespace: actual-budget
+spec:
+    secretName: tls-guibi.dev
+    issuerRef:
+        name: issuer-guibi.dev
+        kind: ClusterIssuer
+    dnsNames:
+        - budget.guibi.dev
