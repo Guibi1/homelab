@@ -16,6 +16,14 @@ spec:
                 - name: crafty
                   image: arcadiatechnology/crafty-4:latest
                   imagePullPolicy: IfNotPresent
+                  securityContext:
+                      runAsUser: 10001
+                      runAsGroup: 10001
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
                   livenessProbe:
                       tcpSocket:
                           port: 8443
@@ -78,3 +86,7 @@ spec:
                   hostPath:
                       path: "/mnt/SSD/app-storage/crafty-controller"
                       type: Directory
+
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault

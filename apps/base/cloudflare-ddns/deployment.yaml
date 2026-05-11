@@ -16,6 +16,21 @@ spec:
                 - name: cloudflare-ddns
                   image: favonia/cloudflare-ddns:latest
                   imagePullPolicy: IfNotPresent
+                  securityContext:
+                      runAsUser: 10001
+                      runAsGroup: 10001
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
+                  resources:
+                      limits:
+                          cpu: "0.25"
+                          memory: "256Mi"
+                      requests:
+                          cpu: "0.1"
+                          memory: "128Mi"
                   env:
                       - name: CLOUDFLARE_API_TOKEN
                         valueFrom:
@@ -24,3 +39,7 @@ spec:
                                 key: api-token
                       - name: DOMAINS
                         value: "srv.guibi.dev"
+
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault

@@ -14,10 +14,16 @@ spec:
         spec:
             containers:
                 - name: home-assistant
-                  image: ghcr.io/home-assistant/home-assistant
+                  image: ghcr.io/home-assistant/home-assistant:stable
                   imagePullPolicy: IfNotPresent
                   securityContext:
-                      privileged: true
+                      runAsUser: 10001
+                      runAsGroup: 10001
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
                   livenessProbe:
                       tcpSocket:
                           port: 8123
@@ -39,6 +45,13 @@ spec:
                       failureThreshold: 30
                       timeoutSeconds: 1
                       periodSeconds: 5
+                  resources:
+                      limits:
+                          cpu: "0.5"
+                          memory: "512Mi"
+                      requests:
+                          cpu: "0.25"
+                          memory: "256Mi"
                   ports:
                       - name: webui
                         containerPort: 8123
@@ -61,3 +74,7 @@ spec:
                   hostPath:
                       path: "/dev/ttyUSB0"
                       type: CharDevice
+
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault
