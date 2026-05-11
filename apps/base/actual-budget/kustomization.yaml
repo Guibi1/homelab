@@ -4,5 +4,4 @@ resources:
     - deployment.yaml
     - ingress.yaml
     - namespace.yaml
-    - postgres.yaml
     - service.yaml
