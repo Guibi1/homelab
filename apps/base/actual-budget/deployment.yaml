@@ -56,18 +56,6 @@ spec:
                       - name: webui
                         containerPort: 5006
                         protocol: TCP
-                  env:
-                      - name: APP_URL
-                        value: https://auth.guibi.dev
-                      - name: TRUSTED_PLATFORM
-                        value: CF-Connecting-IP
-                      - name: ENCRYPTION_KEY_FILE
-                        value: "/app/data/encryption.key"
-                      - name: DB_CONNECTION_STRING
-                        valueFrom:
-                            secretKeyRef:
-                                name: actual-budget-cluster-app
-                                key: uri
                   volumeMounts:
                       - name: data
                         mountPath: "/data"
