@@ -15,7 +15,7 @@ spec:
             containers:
                 - name: home-assistant
                   image: ghcr.io/home-assistant/home-assistant:stable
-                  imagePullPolicy: IfNotPresent
+                  imagePullPolicy: Always
                   securityContext:
                       runAsUser: 10001
                       runAsGroup: 10001

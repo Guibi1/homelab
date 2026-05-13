@@ -15,7 +15,7 @@ spec:
             containers:
                 - name: cloudflare-ddns
                   image: favonia/cloudflare-ddns:latest
-                  imagePullPolicy: IfNotPresent
+                  imagePullPolicy: Always
                   securityContext:
                       runAsUser: 10001
                       runAsGroup: 10001

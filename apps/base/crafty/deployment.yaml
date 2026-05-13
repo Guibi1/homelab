@@ -15,7 +15,7 @@ spec:
             containers:
                 - name: crafty
                   image: arcadiatechnology/crafty-4:latest
-                  imagePullPolicy: IfNotPresent
+                  imagePullPolicy: Always
                   securityContext:
                       runAsUser: 10001
                       runAsGroup: 10001
