@@ -2,7 +2,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
     name: home-assistant-ingress
-    namespace: apps
+    namespace: home-assistant
 spec:
     entryPoints:
         - websecure
@@ -11,9 +11,22 @@ spec:
           kind: Rule
           services:
               - name: home-assistant
-                namespace: apps
+                namespace: home-assistant
                 port: 8123
-                scheme: https
-                serversTransport: insecure-transport
+                scheme: http
     tls:
-        secretName: tls-guibi.dev
+        secretName: tls-certificate
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: tls-certificate
+    namespace: home-assistant
+spec:
+    secretName: tls-guibi.dev
+    issuerRef:
+        name: issuer-guibi.dev
+        kind: ClusterIssuer
+    dnsNames:
+        - hass.guibi.dev

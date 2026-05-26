@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
     name: home-assistant
-    namespace: apps
+    namespace: home-assistant
 spec:
     type: ClusterIP
     selector:

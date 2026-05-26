@@ -2,25 +2,32 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: home-assistant
-    namespace: apps
+    namespace: home-assistant
 spec:
     selector:
         matchLabels:
             app: home-assistant
+    strategy: { "type": "Recreate" }
     template:
         metadata:
             labels:
                 app: home-assistant
         spec:
+            securityContext:
+                fsGroup: 1000
+                supplementalGroups:
+                    - 27 # dialout group for ttyUSB0
+                seccompProfile:
+                    type: RuntimeDefault
+
             containers:
                 - name: home-assistant
-                  image: ghcr.io/home-assistant/home-assistant:stable
+                  image: ghcr.io/11notes/homeassistant:2026
                   imagePullPolicy: Always
                   securityContext:
-                      runAsUser: 10001
-                      runAsGroup: 10001
+                      runAsUser: 1000
+                      runAsGroup: 1000
                       runAsNonRoot: true
-                      readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
                       capabilities:
                           drop: ["ALL"]
@@ -61,7 +68,7 @@ spec:
                         value: "America/Toronto"
                   volumeMounts:
                       - name: config
-                        mountPath: "/config"
+                        mountPath: "/homeassistant/etc"
                       - name: zigbee
                         mountPath: "/dev/ttyUSB0"
 
@@ -74,9 +81,3 @@ spec:
                   hostPath:
                       path: "/dev/ttyUSB0"
                       type: CharDevice
-
-            securityContext:
-                seccompProfile:
-                    type: RuntimeDefault
-                fsGroup: 10001
-                fsGroupChangePolicy: "OnRootMismatch"
