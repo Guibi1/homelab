@@ -45,14 +45,14 @@ spec:
                         name: http
                   volumeMounts:
                       - name: device-plugin
-                        mountPath: /var/lib/rancher/k3s/agent/kubelet/device-plugins
+                        mountPath: /var/lib/kubelet/device-plugins
                       - name: dev
                         mountPath: /dev
 
             volumes:
                 - name: device-plugin
                   hostPath:
-                      path: /var/lib/rancher/k3s/agent/kubelet/device-plugins
+                      path: /var/lib/kubelet/device-plugins
                 - name: dev
                   hostPath:
                       path: /dev
