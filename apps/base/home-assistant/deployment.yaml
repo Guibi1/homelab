@@ -23,7 +23,7 @@ spec:
 
             containers:
                 - name: home-assistant
-                  image: ghcr.io/11notes/homeassistant:2026
+                  image: ghcr.io/11notes/homeassistant:2026.5
                   imagePullPolicy: Always
                   securityContext:
                       runAsUser: 1000
@@ -71,7 +71,7 @@ spec:
                       - name: config
                         mountPath: "/homeassistant/etc"
                       - name: zigbee
-                        mountPath: "/dev/ttyUSB0"
+                        mountPath: "/dev/zigbee"
 
             volumes:
                 - name: config
@@ -80,5 +80,5 @@ spec:
                       type: Directory
                 - name: zigbee
                   hostPath:
-                      path: "/dev/ttyUSB0"
+                      path: "/dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0"
                       type: CharDevice
