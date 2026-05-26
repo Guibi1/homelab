@@ -17,6 +17,11 @@ spec:
         remediation:
             retries: 3
     values:
+        deploymentStrategy:
+            type: RollingUpdate
+            rollingUpdate:
+                maxUnavailable: 1
+
         jellyfin:
             enableDLNA: false
             env:
