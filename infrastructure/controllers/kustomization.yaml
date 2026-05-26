@@ -5,4 +5,4 @@ resources:
     - node-feature-discovery
     - open-ebs
     - reflector
-    - spire
+    # - spire
