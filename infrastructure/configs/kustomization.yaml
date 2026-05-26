@@ -4,7 +4,4 @@ resources:
     - cluster-issuers.yaml
     - storage-class.yaml
     - snapshot-class.yaml
-
-    - insecure-transport.yaml
-
     - apps-namespace.yaml

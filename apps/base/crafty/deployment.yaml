@@ -7,20 +7,25 @@ spec:
     selector:
         matchLabels:
             app: crafty
+    strategy: { "type": "Recreate" }
     template:
         metadata:
             labels:
                 app: crafty
         spec:
+            securityContext:
+                fsGroup: 1000
+                seccompProfile:
+                    type: RuntimeDefault
+
             containers:
                 - name: crafty
                   image: arcadiatechnology/crafty-4:latest
                   imagePullPolicy: Always
                   securityContext:
-                      runAsUser: 10001
-                      runAsGroup: 10001
+                      runAsUser: 1000
+                      runAsGroup: 1000
                       runAsNonRoot: true
-                      readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
                       capabilities:
                           drop: ["ALL"]
@@ -86,9 +91,3 @@ spec:
                   hostPath:
                       path: "/mnt/SSD/app-storage/crafty-controller"
                       type: Directory
-
-            securityContext:
-                seccompProfile:
-                    type: RuntimeDefault
-                fsGroup: 10001
-                fsGroupChangePolicy: "OnRootMismatch"
