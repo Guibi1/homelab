@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+    name: generic-device-plugin
+    namespace: home-assistant
+spec:
+    selector:
+        matchLabels:
+            app: generic-device-plugin
+    updateStrategy:
+        type: RollingUpdate
+    template:
+        metadata:
+            labels:
+                app: generic-device-plugin
+        spec:
+            priorityClassName: system-node-critical
+            tolerations:
+                - operator: "Exists"
+                  effect: "NoExecute"
+                - operator: "Exists"
+                  effect: "NoSchedule"
+
+            containers:
+                - name: generic-device-plugin
+                  image: squat/generic-device-plugin
+                  securityContext:
+                      privileged: true
+                  args:
+                      - --device
+                      - |
+                          name: zigbee
+                          groups:
+                            - paths:
+                                - path: /dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0
+                  resources:
+                      requests:
+                          cpu: 50m
+                          memory: 10Mi
+                      limits:
+                          cpu: 50m
+                          memory: 20Mi
+                  ports:
+                      - containerPort: 8080
+                        name: http
+                  volumeMounts:
+                      - name: device-plugin
+                        mountPath: /var/lib/rancher/k3s/agent/kubelet/device-plugins
+                      - name: dev
+                        mountPath: /dev
+
+            volumes:
+                - name: device-plugin
+                  hostPath:
+                      path: /var/lib/rancher/k3s/agent/kubelet/device-plugins
+                - name: dev
+                  hostPath:
+                      path: /dev

@@ -60,6 +60,7 @@ spec:
                       requests:
                           cpu: "0.25"
                           memory: "256Mi"
+                          devic.es/zigbee: 1
                   ports:
                       - name: webui
                         containerPort: 8123
@@ -70,15 +71,9 @@ spec:
                   volumeMounts:
                       - name: config
                         mountPath: "/homeassistant/etc"
-                      - name: zigbee
-                        mountPath: "/dev/zigbee"
 
             volumes:
                 - name: config
                   hostPath:
                       path: "/mnt/SSD/app-storage/home-assistant"
                       type: Directory
-                - name: zigbee
-                  hostPath:
-                      path: "/dev/serial/by-id/usb-Silicon_Labs_Sonoff_Zigbee_3.0_USB_Dongle_Plus_0001-if00-port0"
-                      type: CharDevice
