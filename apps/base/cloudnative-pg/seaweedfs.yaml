@@ -15,17 +15,5 @@ spec:
         replicas: 3
         storageClassName: openebs-zfspv
 
-    filer:
-        replicas: 2
-        s3:
-            enabled: true
-        persistence:
-            enabled: true
-            storageClassName: openebs-zfspv
-            resources:
-                requests:
-                    storage: 20Gi
-        config: |
-            [leveldb2]
-            enabled = true
-            dir = "/data/filerldb2"
+    s3:
+        replicas: 3
