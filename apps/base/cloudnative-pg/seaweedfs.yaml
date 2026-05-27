@@ -18,11 +18,11 @@ spec:
             storage: 20Gi
 
     filer:
-        replicas: 3
+        replicas: 2
+        s3:
+            enabled: true
+        iam: true
         config: |
             [leveldb2]
             enabled = true
             dir = "/data/filerldb2"
-
-    s3:
-        replicas: 3
