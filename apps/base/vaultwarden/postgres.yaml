@@ -77,7 +77,7 @@ spec:
     retentionPolicy: "14d"
     configuration:
         destinationPath: s3://cnpg-vaultwarden/
-        endpointURL: http://cnpg-seaweed-s3.cnpg.svc.cluster.local:8333
+        endpointURL: http://cnpg-seaweed-filer.cnpg.svc.cluster.local:8333
         s3Credentials:
             accessKeyId:
                 name: cnpg-s3-credentials
