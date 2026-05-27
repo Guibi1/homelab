@@ -5,4 +5,5 @@ resources:
     - node-feature-discovery
     - open-ebs
     - reflector
+    - seaweedfs
     # - spire

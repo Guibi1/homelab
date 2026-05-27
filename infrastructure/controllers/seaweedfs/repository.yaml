@@ -1,0 +1,9 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+    name: seaweedfs-repo
+    namespace: seaweedfs
+spec:
+    type: default
+    url: https://seaweedfs.github.io/seaweedfs-operator
+    interval: 24h
