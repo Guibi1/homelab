@@ -16,7 +16,7 @@ spec:
         storageClassName: openebs-zfspv
 
     filer:
-        replicas: 2
+        replicas: 1
         s3: true
         config: |
             [leveldb2]
