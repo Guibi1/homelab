@@ -2,7 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
     name: vaultwarden-cluster
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     description: "Vaultwarden cluster"
     imageName: ghcr.io/cloudnative-pg/postgresql:17.4
@@ -60,7 +60,7 @@ kind: Secret
 type: kubernetes.io/basic-auth
 metadata:
     name: vaultwarden-cluster-secret
-    namespace: cnpg
+    namespace: vaultwarden
 data:
     username: dmF1bHR3YXJkZW4=
     password: dmF1bHR3YXJkZW4=
@@ -70,7 +70,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
     name: vaultwarden-cluster-backup
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     schedule: "0 0 0 * * *"
     backupOwnerReference: self
@@ -85,7 +85,7 @@ apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
     name: cnpg-backups-store
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     retentionPolicy: "14d"
     configuration:

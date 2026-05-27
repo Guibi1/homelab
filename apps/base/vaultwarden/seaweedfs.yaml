@@ -2,7 +2,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: Bucket
 metadata:
     name: cnpg-vaultwarden
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     clusterRef:
         name: cnpg-seaweed
@@ -13,7 +13,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: S3Identity
 metadata:
     name: cnpg-backups
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     name: cnpg-backups-vaultwarden
     seaweedRef:
@@ -25,7 +25,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: S3Credentials
 metadata:
     name: cnpg-backups-credentials
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     seaweedRef:
         name: cnpg-seaweed
@@ -40,7 +40,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: S3Policy
 metadata:
     name: cnpg-backups-policy
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     name: cnpg-backups-policy-vaultwarden
     seaweedRef:
@@ -59,7 +59,7 @@ apiVersion: seaweed.seaweedfs.com/v1
 kind: S3PolicyBinding
 metadata:
     name: cnpg-backups-policy-binding
-    namespace: cnpg
+    namespace: vaultwarden
 spec:
     seaweedRef:
         name: cnpg-seaweed
