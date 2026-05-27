@@ -16,4 +16,4 @@ spec:
 
     values:
         webhook:
-            enabled: false
+            enabled: true

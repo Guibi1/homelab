@@ -15,5 +15,10 @@ spec:
         replicas: 3
         storageClassName: openebs-zfspv
 
-    s3:
-        replicas: 3
+    filer:
+        replicas: 2
+        s3: true
+        config: |
+            [leveldb2]
+            enabled = true
+            dir = "/data/filerldb2"
