@@ -7,16 +7,6 @@ spec:
     image: chrislusf/seaweedfs:latest
     volumeServerDiskCount: 1
 
-    global:
-        seaweedfs:
-            enableSecurity: false
-            securityConfig:
-                jwtSigning:
-                    volumeWrite: false
-                    volumeRead: false
-                    filerWrite: false
-                    filerRead: false
-
     master:
         replicas: 3
         volumeSizeLimitMB: 1024
