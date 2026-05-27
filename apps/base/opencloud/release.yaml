@@ -24,8 +24,6 @@ spec:
 
         opencloud:
             persistence:
-                config:
-                    existingClaim: opencloud-config-pvc
                 data:
                     existingClaim: opencloud-data-pvc
 
