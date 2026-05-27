@@ -25,8 +25,8 @@ spec:
 
         database:
             type: postgresql
-            uriOverride: postgresql://vaultwarden:vaultwarden@vaultwarden-cluster-rw.cnpg.svc.cluster.local:5432/vaultwarden
-
+            existingSecret: vaultwarden-cluster-app
+            existingSecretKey: uri
         sso:
             enabled: true
             onlySSO: true

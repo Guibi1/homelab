@@ -23,8 +23,6 @@ spec:
         initdb:
             database: vaultwarden
             owner: vaultwarden
-            secret:
-                name: vaultwarden-cluster-secret
 
     storage:
         size: 10Gi
@@ -53,17 +51,6 @@ spec:
     affinity:
         enablePodAntiAffinity: true
         topologyKey: failure-domain.beta.kubernetes.io/zone
-
----
-apiVersion: v1
-kind: Secret
-type: kubernetes.io/basic-auth
-metadata:
-    name: vaultwarden-cluster-secret
-    namespace: vaultwarden
-data:
-    username: dmF1bHR3YXJkZW4=
-    password: dmF1bHR3YXJkZW4=
 
 ---
 apiVersion: postgresql.cnpg.io/v1
