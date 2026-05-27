@@ -1,0 +1,71 @@
+apiVersion: seaweed.seaweedfs.com/v1
+kind: Bucket
+metadata:
+    name: cnpg-vaultwarden
+    namespace: cnpg
+spec:
+    clusterRef:
+        name: cnpg-seaweed
+        namespace: cnpg
+
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: S3Identity
+metadata:
+    name: cnpg-backups
+    namespace: cnpg
+spec:
+    name: cnpg-backups-vaultwarden
+    seaweedRef:
+        name: cnpg-seaweed
+        namespace: cnpg
+
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: S3Credentials
+metadata:
+    name: cnpg-backups-credentials
+    namespace: cnpg
+spec:
+    seaweedRef:
+        name: cnpg-seaweed
+        namespace: cnpg
+    identityRef:
+        name: cnpg-backups
+    secretRef:
+        name: cnpg-s3-credentials
+
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: S3Policy
+metadata:
+    name: cnpg-backups-policy
+    namespace: cnpg
+spec:
+    name: cnpg-backups-policy-vaultwarden
+    seaweedRef:
+        name: cnpg-seaweed
+        namespace: cnpg
+    statements:
+        - effect: Allow
+          actions:
+              - s3:*
+          resources:
+              - cnpg-vaultwarden
+              - cnpg-vaultwarden/*
+
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: S3PolicyBinding
+metadata:
+    name: cnpg-backups-policy-binding
+    namespace: cnpg
+spec:
+    seaweedRef:
+        name: cnpg-seaweed
+        namespace: cnpg
+    policyRef:
+        name: cnpg-backups-policy
+    subjects:
+        - kind: S3Identity
+          name: cnpg-backups

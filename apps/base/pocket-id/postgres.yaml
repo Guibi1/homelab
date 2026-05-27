@@ -42,7 +42,7 @@ spec:
         - name: barman-cloud.cloudnative-pg.io
           isWALArchiver: true
           parameters:
-              barmanObjectName: cloudnative-pg-backups-store
+              barmanObjectName: cnpg-backups-store
               serverName: pocket-id-cluster
 
     monitoring:
@@ -71,23 +71,20 @@ spec:
 apiVersion: barmancloud.cnpg.io/v1
 kind: ObjectStore
 metadata:
-    name: cloudnative-pg-backups-store
+    name: cnpg-backups-store
     namespace: pocket-id
 spec:
     retentionPolicy: "14d"
     configuration:
-        destinationPath: s3://cnpg-backups/
-        endpointURL: https://minio.cnpg.svc.cluster.local
-        endpointCA:
-            name: cnpg-minio-tenant-ca-tls
-            key: ca.crt
+        destinationPath: s3://cnpg-pocket-id/
+        endpointURL: http://cnpg-seaweed-filer.cnpg.svc.cluster.local:8333
         s3Credentials:
             accessKeyId:
-                name: cnpg-minio-tenant-credentials
-                key: CONSOLE_ACCESS_KEY
+                name: cnpg-s3-credentials
+                key: accessKey
             secretAccessKey:
-                name: cnpg-minio-tenant-credentials
-                key: CONSOLE_SECRET_KEY
+                name: cnpg-s3-credentials
+                key: secretKey
         data:
             compression: snappy
         wal:

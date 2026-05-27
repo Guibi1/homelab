@@ -4,5 +4,4 @@ resources:
     - namespace.yaml
     - repository.yaml
     - release.yaml
-    - minio
-    - objectstore.yaml
+    - seaweedfs.yaml

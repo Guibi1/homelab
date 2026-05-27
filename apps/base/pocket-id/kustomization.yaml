@@ -6,3 +6,4 @@ resources:
     - namespace.yaml
     - postgres.yaml
     - service.yaml
+    - seaweedfs.yaml
