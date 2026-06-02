@@ -31,9 +31,9 @@ spec:
         name: cnpg-seaweed
         namespace: cnpg
     identityRef:
-        name: cnpg-backups
+        name: cnpg-backups-pocket-id
     secretRef:
-        name: cnpg-s3-credentials
+        name: cnpg-backups-s3-credentials
 
 ---
 apiVersion: seaweed.seaweedfs.com/v1
@@ -65,7 +65,7 @@ spec:
         name: cnpg-seaweed
         namespace: cnpg
     policyRef:
-        name: cnpg-backups-policy
+        name: cnpg-backups-policy-pocket-id
     subjects:
         - kind: S3Identity
-          name: cnpg-backups
+          name: cnpg-backups-pocket-id
