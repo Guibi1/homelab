@@ -17,5 +17,9 @@ spec:
         requests:
             storage: 20Gi
 
+    filer:
+        replicas: 3
+
     s3:
         replicas: 3
+        iam: true
