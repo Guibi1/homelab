@@ -21,29 +21,20 @@ spec:
                 seccompProfile:
                     type: RuntimeDefault
 
-            initContainers:
-                - name: clean-logs
-                  image: alpine:3
-                  command:
-                      - "rm"
-                      - "-f"
-                      - "/homeassistant/etc/home-assistant.log"
-                      - "/homeassistant/etc/home-assistant.log.1"
-                      - "/homeassistant/etc/home-assistant.log.fault"
-                  securityContext:
-                      runAsUser: 1000
-                      runAsGroup: 1000
-                      allowPrivilegeEscalation: false
-                      capabilities:
-                          drop: ["ALL"]
-                  volumeMounts:
-                      - name: config
-                        mountPath: "/homeassistant/etc"
-
             containers:
                 - name: home-assistant
                   image: ghcr.io/11notes/homeassistant:2026.5
                   imagePullPolicy: Always
+                  command:
+                      - /bin/sh
+                      - -c
+                      - |
+                          rm -f \
+                          /homeassistant/etc/home-assistant.log \
+                          /homeassistant/etc/home-assistant.log.1 \
+                          /homeassistant/etc/home-assistant.log.fault
+
+                          exec /usr/local/bin/entrypoint
                   securityContext:
                       runAsUser: 1000
                       runAsGroup: 1000
