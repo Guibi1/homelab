@@ -52,6 +52,6 @@ spec:
             path: /
             pathType: Prefix
             tls:
-                - secretName: tls-guibi.dev
+                - secretName: tls-certificate
                   hosts:
                       - sonarr.guibi.dev
