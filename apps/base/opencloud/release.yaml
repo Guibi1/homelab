@@ -44,6 +44,9 @@ spec:
                     endpoint: nats.opencloud.svc.cluster.local:4222
                     cluster: opencloud-cluster
 
+            migration:
+                enabled: false
+
         oidc:
             enabled: false
             external:
