@@ -23,3 +23,24 @@ spec:
     s3:
         replicas: 3
         iam: true
+
+---
+apiVersion: seaweed.seaweedfs.com/v1
+kind: ResourceReferenceGrant
+metadata:
+    name: cnpg-seaweed-grant
+    namespace: cnpg
+spec:
+    from:
+        - { group: seaweed.seaweedfs.com, kind: Bucket, namespace: pocket-id }
+        - { group: seaweed.seaweedfs.com, kind: S3Identity, namespace: pocket-id }
+        - { group: seaweed.seaweedfs.com, kind: S3Credentials, namespace: pocket-id }
+        - { group: seaweed.seaweedfs.com, kind: S3Policy, namespace: pocket-id }
+        - { group: seaweed.seaweedfs.com, kind: S3PolicyBinding, namespace: pocket-id }
+        - { group: seaweed.seaweedfs.com, kind: Bucket, namespace: vaultwarden }
+        - { group: seaweed.seaweedfs.com, kind: S3Identity, namespace: vaultwarden }
+        - { group: seaweed.seaweedfs.com, kind: S3Credentials, namespace: vaultwarden }
+        - { group: seaweed.seaweedfs.com, kind: S3Policy, namespace: vaultwarden }
+        - { group: seaweed.seaweedfs.com, kind: S3PolicyBinding, namespace: vaultwarden }
+    to:
+        - { group: seaweed.seaweedfs.com, kind: Seaweed }
