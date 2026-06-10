@@ -4,6 +4,7 @@ resources:
     - namespace.yaml
     - oidc-middleware.yaml
     - repository.yaml
+    - ingress.yaml
     - prowlarr
     - radarr
     - sonarr
