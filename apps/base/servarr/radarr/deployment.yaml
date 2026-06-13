@@ -19,7 +19,7 @@ spec:
 
             containers:
                 - name: radarr
-                  image: ghcr.io/11notes/radarr:4.0
+                  image: ghcr.io/11notes/radarr:6.2
                   imagePullPolicy: Always
                   securityContext:
                       runAsUser: 1000
