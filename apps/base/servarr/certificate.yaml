@@ -9,5 +9,4 @@ spec:
         name: issuer-guibi.dev
         kind: ClusterIssuer
     dnsNames:
-        - radarr.guibi.dev
         - srv.guibi.dev

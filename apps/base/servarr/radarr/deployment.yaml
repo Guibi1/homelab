@@ -1,0 +1,110 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: radarr
+    namespace: servarr
+spec:
+    selector:
+        matchLabels:
+            app: radarr
+    template:
+        metadata:
+            labels:
+                app: radarr
+        spec:
+            securityContext:
+                fsGroup: 1000
+                seccompProfile:
+                    type: RuntimeDefault
+
+            containers:
+                - name: radarr
+                  image: ghcr.io/11notes/radarr:4.0
+                  imagePullPolicy: Always
+                  securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
+                  livenessProbe:
+                      tcpSocket:
+                          port: 7878
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  readinessProbe:
+                      tcpSocket:
+                          port: 7878
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  startupProbe:
+                      tcpSocket:
+                          port: 7878
+                      initialDelaySeconds: 0
+                      failureThreshold: 30
+                      timeoutSeconds: 1
+                      periodSeconds: 5
+                  resources:
+                      limits:
+                          cpu: "0.5"
+                          memory: "512Mi"
+                      requests:
+                          cpu: "0.25"
+                          memory: "256Mi"
+                  ports:
+                      - name: webui
+                        containerPort: 7878
+                        protocol: TCP
+                  env:
+                      - name: TZ
+                        value: "America/Toronto"
+                      - name: RADARR__AUTH__APIKEY
+                        value: d11c7839ad5a183da80e9de80665561f
+                      - name: RADARR__SERVER__URLBASE
+                        value: /radarr
+                      - name: RADARR__AUTH__METHOD
+                        value: External
+                      - name: RADARR__POSTGRES__HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: host
+                      - name: RADARR__POSTGRES__PORT
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: port
+                      - name: RADARR__POSTGRES__USER
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: user
+                      - name: RADARR__POSTGRES__PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: password
+                      - name: RADARR__POSTGRES__MAINDB
+                        value: radarr
+                      - name: RADARR__POSTGRES__LOGDB
+                        value: radarr-logs
+
+                  volumeMounts:
+                      - name: media
+                        mountPath: "/media"
+                      - name: tmp
+                        mountPath: "/tmp"
+
+            volumes:
+                - name: media
+                  hostPath:
+                      path: "/mnt/Data/Media"
+                      type: Directory
+                - name: tmp
+                  emptyDir: {}
