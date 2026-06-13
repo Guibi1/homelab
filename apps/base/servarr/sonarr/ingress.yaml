@@ -9,6 +9,9 @@ spec:
     routes:
         - match: Host(`srv.guibi.dev`) && PathPrefix(`/sonarr`)
           kind: Rule
+          middlewares:
+              - name: oidc-auth
+                namespace: servarr
           services:
               - name: sonarr
                 namespace: servarr
