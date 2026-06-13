@@ -80,12 +80,12 @@ spec:
                         valueFrom:
                             secretKeyRef:
                                 name: servarr-cluster-app
-                                key: port
+                                key: user
                       - name: SONARR__POSTGRES__PASSWORD
                         valueFrom:
                             secretKeyRef:
                                 name: servarr-cluster-app
-                                key: port
+                                key: password
                       - name: SONARR__POSTGRES__MAINDB
                         value: sonarr
                       - name: SONARR__POSTGRES__LOGDB
