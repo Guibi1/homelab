@@ -10,7 +10,7 @@ spec:
         - match: Host(`srv.guibi.dev`) && PathPrefix(`/sonarr`)
           kind: Rule
           middlewares:
-              - name: oidc-auth
+              - name: sonarr-oidc-auth
                 namespace: servarr
           services:
               - name: sonarr
@@ -19,3 +19,22 @@ spec:
                 scheme: http
     tls:
         secretName: tls-certificate
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: sonarr-oidc-auth
+    namespace: servarr
+spec:
+    plugin:
+        traefikoidc:
+            providerURL: https://auth.guibi.dev
+            scopes: groups
+            clientID: bf229943-0aa8-4a61-baa5-d229413c772d
+            clientSecret: urn:k8s:secret:oidc-auth:CLIENT_SECRET
+            sessionEncryptionKey: urn:k8s:secret:oidc-auth:SESSION_KEY
+            callbackURL: /sonarr/oauth/callback
+            logoutURL: /sonarr/oauth/logout
+            postLogoutRedirectURI: /sonarr
+            allowedRolesAndGroups: [admin]
