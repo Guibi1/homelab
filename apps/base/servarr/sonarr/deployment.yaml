@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sonarr
+    namespace: servarr
+spec:
+    selector:
+        matchLabels:
+            app: sonarr
+    template:
+        metadata:
+            labels:
+                app: sonarr
+        spec:
+            securityContext:
+                fsGroup: 1000
+                seccompProfile:
+                    type: RuntimeDefault
+
+            containers:
+                - name: sonarr
+                  image: ghcr.io/11notes/sonarr:4.0
+                  imagePullPolicy: Always
+                  securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
+                  livenessProbe:
+                      tcpSocket:
+                          port: 8989
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  readinessProbe:
+                      tcpSocket:
+                          port: 8989
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      timeoutSeconds: 1
+                      periodSeconds: 10
+                  startupProbe:
+                      tcpSocket:
+                          port: 8989
+                      initialDelaySeconds: 0
+                      failureThreshold: 30
+                      timeoutSeconds: 1
+                      periodSeconds: 5
+                  resources:
+                      limits:
+                          cpu: "0.5"
+                          memory: "512Mi"
+                      requests:
+                          cpu: "0.25"
+                          memory: "256Mi"
+                  ports:
+                      - name: webui
+                        containerPort: 8989
+                        protocol: TCP
+                  env:
+                      - name: TZ
+                        value: "America/Toronto"
+                      - name: SONARR__AUTH__APIKEY
+                        value: 9c047f68d2574e30242e1291fc0c5c91
+                      - name: SONARR__POSTGRES__HOST
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: host
+                      - name: SONARR__POSTGRES__PORT
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: port
+                      - name: SONARR__POSTGRES__USER
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: port
+                      - name: SONARR__POSTGRES__PASSWORD
+                        valueFrom:
+                            secretKeyRef:
+                                name: servarr-cluster-app
+                                key: port
+                      - name: SONARR__POSTGRES__MAINDB
+                        value: sonarr
+                      - name: SONARR__POSTGRES__LOGDB
+                        value: sonarr-logs
+
+                  volumeMounts:
+                      - name: media
+                        mountPath: "/sonarr/etc"
+                      - name: tmp
+                        mountPath: "/tmp"
+
+            volumes:
+                - name: media
+                  hostPath:
+                      path: "/mnt/Data/Media"
+                      type: Directory
+                - name: tmp
+                  emptyDir: {}

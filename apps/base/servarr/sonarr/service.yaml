@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: sonarr
+    namespace: servarr
+spec:
+    type: ClusterIP
+    selector:
+        app: sonarr
+    ports:
+        - name: webui
+          port: 8989
+          protocol: TCP
