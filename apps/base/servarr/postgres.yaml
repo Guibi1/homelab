@@ -1,0 +1,92 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+    name: servarr-cluster
+    namespace: servarr
+spec:
+    description: "Servarr cluster"
+    imageName: ghcr.io/cloudnative-pg/postgresql:17.4
+    instances: 3
+    startDelay: 300
+    stopDelay: 300
+    primaryUpdateStrategy: unsupervised
+    enableSuperuserAccess: true
+
+    postgresql:
+        parameters:
+            shared_buffers: 256MB
+            pg_stat_statements.max: "10000"
+            pg_stat_statements.track: all
+            auto_explain.log_min_duration: "10s"
+
+    bootstrap:
+        initdb:
+            database: servarr
+            owner: servarr
+
+    storage:
+        size: 2Gi
+
+    walStorage:
+        size: 1Gi
+
+    resources:
+        requests:
+            memory: "256Mi"
+            cpu: 25m
+        limits:
+            memory: "512Gi"
+            cpu: 1000m
+
+    plugins:
+        - name: barman-cloud.cloudnative-pg.io
+          isWALArchiver: true
+          parameters:
+              barmanObjectName: cnpg-backups-store
+              serverName: servarr-cluster
+
+    monitoring:
+        enablePodMonitor: true
+
+    affinity:
+        enablePodAntiAffinity: true
+        topologyKey: failure-domain.beta.kubernetes.io/zone
+
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: ScheduledBackup
+metadata:
+    name: servarr-cluster-backup
+    namespace: servarr
+spec:
+    schedule: "0 0 0 * * *"
+    backupOwnerReference: self
+    cluster:
+        name: servarr-cluster
+    method: plugin
+    pluginConfiguration:
+        name: barman-cloud.cloudnative-pg.io
+
+---
+apiVersion: barmancloud.cnpg.io/v1
+kind: ObjectStore
+metadata:
+    name: cnpg-backups-store
+    namespace: servarr
+spec:
+    retentionPolicy: "14d"
+    configuration:
+        destinationPath: s3://cnpg-servarr/
+        endpointURL: http://cnpg-seaweed-s3.cnpg.svc.cluster.local:8333
+        s3Credentials:
+            accessKeyId:
+                name: cnpg-backups-s3-credentials
+                key: accessKey
+            secretAccessKey:
+                name: cnpg-backups-s3-credentials
+                key: secretKey
+        data:
+            compression: lz4
+        wal:
+            compression: lz4
+            maxParallel: 8
