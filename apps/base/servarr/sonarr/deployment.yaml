@@ -97,7 +97,7 @@ spec:
 
                   volumeMounts:
                       - name: media
-                        mountPath: "/sonarr/etc"
+                        mountPath: "/media"
                       - name: tmp
                         mountPath: "/tmp"
 
