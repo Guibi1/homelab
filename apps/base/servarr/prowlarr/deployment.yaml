@@ -19,9 +19,13 @@ spec:
 
             containers:
                 - name: prowlarr
-                  image: ghcr.io/hotio/prowlarr:latest
+                  image: ghcr.io/11notes/prowlarr:2.4
                   imagePullPolicy: Always
                   securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      runAsNonRoot: true
+                      readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
                       capabilities:
                           drop: ["ALL"]
@@ -58,12 +62,6 @@ spec:
                         containerPort: 9696
                         protocol: TCP
                   env:
-                      - name: PUID
-                        value: "1000"
-                      - name: PGID
-                        value: "1000"
-                      - name: UMASK
-                        value: "002"
                       - name: TZ
                         value: "America/Toronto"
                       - name: PROWLARR__AUTH__APIKEY
@@ -98,13 +96,9 @@ spec:
                         value: prowlarr-logs
 
                   volumeMounts:
-                      - name: config
-                        mountPath: "/config"
                       - name: tmp
                         mountPath: "/tmp"
 
             volumes:
-                - name: config
-                  emptyDir: {}
                 - name: tmp
                   emptyDir: {}
