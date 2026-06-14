@@ -22,7 +22,6 @@ spec:
                   image: ghcr.io/hotio/prowlarr:latest
                   imagePullPolicy: Always
                   securityContext:
-                      readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
                       capabilities:
                           drop: ["ALL"]
@@ -97,15 +96,3 @@ spec:
                         value: prowlarr
                       - name: PROWLARR__POSTGRES__LOGDB
                         value: prowlarr-logs
-
-                  volumeMounts:
-                      - name: run
-                        mountPath: "/run"
-                      - name: tmp
-                        mountPath: "/tmp"
-
-            volumes:
-                - name: run
-                  emptyDir: {}
-                - name: tmp
-                  emptyDir: {}
