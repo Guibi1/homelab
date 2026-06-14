@@ -96,3 +96,15 @@ spec:
                         value: prowlarr
                       - name: PROWLARR__POSTGRES__LOGDB
                         value: prowlarr-logs
+
+                  volumeMounts:
+                      - name: config
+                        mountPath: "/config"
+                      - name: tmp
+                        mountPath: "/tmp"
+
+            volumes:
+                - name: config
+                  emptyDir: {}
+                - name: tmp
+                  emptyDir: {}
