@@ -68,7 +68,7 @@ spec:
                       - name: TRUSTED_PLATFORM
                         value: CF-Connecting-IP
                       - name: ENCRYPTION_KEY_FILE
-                        value: "/app/data/encryption.key"
+                        value: "/pocket-id/var/encryption.key"
                       - name: DB_CONNECTION_STRING
                         valueFrom:
                             secretKeyRef:
@@ -76,7 +76,7 @@ spec:
                                 key: uri
                   volumeMounts:
                       - name: data
-                        mountPath: "/app/data"
+                        mountPath: "/pocket-id/var"
 
             volumes:
                 - name: data
