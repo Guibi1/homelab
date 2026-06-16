@@ -10,3 +10,4 @@ spec:
         kind: ClusterIssuer
     dnsNames:
         - srv.guibi.dev
+        - seerr.guibi.dev

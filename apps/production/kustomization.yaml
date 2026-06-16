@@ -10,6 +10,5 @@ resources:
     - ../base/jellyfin
     - ../base/opencloud
     - ../base/pocket-id
-    - ../base/seerr
     - ../base/servarr
     - ../base/vaultwarden
