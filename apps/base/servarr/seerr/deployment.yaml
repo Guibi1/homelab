@@ -64,6 +64,8 @@ spec:
                   env:
                       - name: TZ
                         value: "America/Toronto"
+                      - name: DB_TYPE
+                        value: postgres
                       - name: DB_HOST
                         valueFrom:
                             secretKeyRef:
