@@ -92,7 +92,7 @@ spec:
                         mountPath: "/app/config"
 
             volumes:
-                - name: media
+                - name: config
                   hostPath:
                       path: "/mnt/SSD/app-storage/seerr"
                       type: Directory
