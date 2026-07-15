@@ -15,4 +15,4 @@ spec:
                 port: 5055
                 scheme: http
     tls:
-        secretName: tls-certificate
+        secretName: tls-guibi.dev

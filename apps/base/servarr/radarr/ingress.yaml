@@ -18,7 +18,7 @@ spec:
                 port: 7878
                 scheme: http
     tls:
-        secretName: tls-certificate
+        secretName: tls-guibi.dev
 
 ---
 apiVersion: traefik.io/v1alpha1
