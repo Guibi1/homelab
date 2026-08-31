@@ -23,6 +23,10 @@ spec:
                 oidc: auth.guibi.dev
                 collabora: collabora.cloud.guibi.dev
 
+            tls:
+                enabled: true
+                secretName: tls-certificate
+
         opencloud:
             persistence:
                 data:
@@ -60,8 +64,18 @@ spec:
             annotations:
                 traefik.ingress.kubernetes.io/router.entrypoints: websecure
                 traefik.ingress.kubernetes.io/router.tls: "true"
-            tls:
-                - secretName: tls-guibi.dev
-                  hosts:
-                      - cloud.guibi.dev
-                      - collabora.cloud.guibi.dev
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: tls-certificate
+    namespace: opencloud
+spec:
+    secretName: tls-guibi.dev
+    issuerRef:
+        name: issuer-guibi.dev
+        kind: ClusterIssuer
+    dnsNames:
+        - cloud.guibi.dev
+        - collabora.cloud.guibi.dev
