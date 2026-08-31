@@ -52,8 +52,6 @@ spec:
             migration:
                 enabled: false
 
-            excludeServices: ["idp"]
-
         oidc:
             issuerUrl: https://auth.guibi.dev
             clientId: e4aeebbc-e388-47c9-8e62-2bb94cd7b685
