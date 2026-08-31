@@ -21,7 +21,7 @@ spec:
             domain:
                 opencloud: cloud.guibi.dev
                 oidc: auth.guibi.dev
-                collabora: collabora.cloud.guibi.dev
+                collabora: collabora.guibi.dev
 
             tls:
                 enabled: true
@@ -76,4 +76,4 @@ spec:
         kind: ClusterIssuer
     dnsNames:
         - cloud.guibi.dev
-        - collabora.cloud.guibi.dev
+        - collabora.guibi.dev
