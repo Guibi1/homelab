@@ -21,6 +21,7 @@ spec:
             domain:
                 opencloud: cloud.guibi.dev
                 oidc: auth.guibi.dev
+                collabora: collabora.cloud.guibi.dev
 
         opencloud:
             persistence:
@@ -47,12 +48,12 @@ spec:
             migration:
                 enabled: false
 
+            excludeServices: ["idp"]
+
         oidc:
-            enabled: false
-            external:
-                issuerUrl: https://auth.guibi.dev
-                clientId: e4aeebbc-e388-47c9-8e62-2bb94cd7b685
-                accountUrl: https://auth.guibi.dev/settings/account
+            issuerUrl: https://auth.guibi.dev
+            clientId: e4aeebbc-e388-47c9-8e62-2bb94cd7b685
+            accountUrl: https://auth.guibi.dev/settings/account
 
         ingress:
             enabled: true
