@@ -64,3 +64,4 @@ spec:
                 - secretName: tls-guibi.dev
                   hosts:
                       - cloud.guibi.dev
+                      - collabora.cloud.guibi.dev
