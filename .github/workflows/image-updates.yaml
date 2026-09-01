@@ -1,0 +1,36 @@
+name: image-updates
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "0 6 * * 6"
+
+permissions:
+    contents: write
+
+jobs:
+    image-updates:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup bun
+              uses: oven-sh/setup-bun@v2
+
+            - name: Check image updates
+              run: bun scripts/check-image-updates.ts --fix apps
+
+            - name: Open PR
+              uses: peter-evans/create-pull-request@v7
+              with:
+                  branch: chore/image-updates
+                  title: "Chore: Update container images"
+                  commit-message: "Chore: Update container image tags"
+                  body: |
+                      Automatic major.minor image tag updates.
+
+                      Review each bump before merging — this does not check breaking changes across majors.
+                  labels: |
+                      dependencies
+                  delete-branch: true
