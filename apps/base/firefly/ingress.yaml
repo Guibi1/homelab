@@ -1,0 +1,55 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: firefly-ingress
+    namespace: firefly
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: Host(`firefly.guibi.dev`)
+          kind: Rule
+          middlewares:
+              - name: firefly-oidc-auth
+                namespace: firefly
+          services:
+              - name: firefly
+                namespace: firefly
+                port: 80
+                scheme: http
+    tls:
+        secretName: tls-guibi.dev
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: firefly-oidc-auth
+    namespace: firefly
+spec:
+    plugin:
+        traefikoidc:
+            providerURL: https://auth.guibi.dev
+            scopes: groups
+            clientID: 584e080f-d5cb-4a86-b872-38f3e732c7aa
+            clientSecret: urn:k8s:secret:oidc-auth:CLIENT_SECRET
+            sessionEncryptionKey: urn:k8s:secret:oidc-auth:SESSION_KEY
+            callbackURL: /oauth/callback
+            logoutURL: /oauth/logout
+            postLogoutRedirectURI: /
+            minimalHeaders: true
+            cookiePrefix: _firefly_oidc_
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+    name: tls-certificate
+    namespace: firefly
+spec:
+    secretName: tls-guibi.dev
+    issuerRef:
+        name: issuer-guibi.dev
+        kind: ClusterIssuer
+    dnsNames:
+        - firefly.guibi.dev

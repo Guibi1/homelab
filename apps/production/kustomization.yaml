@@ -6,6 +6,7 @@ resources:
     - ../base/actual-budget
     - ../base/cloudflare-ddns
     - ../base/crafty
+    - ../base/firefly
     - ../base/home-assistant
     - ../base/jellyfin
     - ../base/opencloud
