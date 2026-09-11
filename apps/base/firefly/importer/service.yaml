@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: firefly-importer
+    namespace: firefly
+spec:
+    type: ClusterIP
+    selector:
+        app: firefly-importer
+    ports:
+        - name: webui
+          port: 80
+          targetPort: 8080
+          protocol: TCP

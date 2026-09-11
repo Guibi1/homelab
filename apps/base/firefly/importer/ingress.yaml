@@ -1,0 +1,54 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: firefly-importer-ingress
+    namespace: firefly
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: Host(`firefly.guibi.dev`) && PathPrefix(`/import`)
+          kind: Rule
+          middlewares:
+              - name: firefly-importer-oidc-auth
+                namespace: firefly
+              - name: firefly-import-strip-prefix
+                namespace: firefly
+          services:
+              - name: firefly-importer
+                namespace: firefly
+                port: 80
+                scheme: http
+    tls:
+        secretName: tls-guibi.dev
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: firefly-importer-oidc-auth
+    namespace: firefly
+spec:
+    plugin:
+        traefikoidc:
+            providerURL: https://auth.guibi.dev
+            scopes: groups
+            clientID: 584e080f-d5cb-4a86-b872-38f3e732c7aa
+            clientSecret: urn:k8s:secret:oidc-auth:CLIENT_SECRET
+            sessionEncryptionKey: urn:k8s:secret:oidc-auth:SESSION_KEY
+            callbackURL: /import/oauth/callback
+            logoutURL: /import/oauth/logout
+            postLogoutRedirectURI: /import/
+            minimalHeaders: true
+            cookiePrefix: _firefly_oidc_
+
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+    name: firefly-import-strip-prefix
+    namespace: firefly
+spec:
+    stripPrefix:
+        prefixes:
+            - /import

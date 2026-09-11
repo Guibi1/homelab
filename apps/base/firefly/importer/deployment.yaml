@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: firefly-importer
+    namespace: firefly
+spec:
+    selector:
+        matchLabels:
+            app: firefly-importer
+    template:
+        metadata:
+            labels:
+                app: firefly-importer
+        spec:
+            containers:
+                - name: importer
+                  image: fireflyiii/data-importer:latest
+                  imagePullPolicy: IfNotPresent
+                  securityContext:
+                      runAsUser: 33
+                      runAsGroup: 33
+                      runAsNonRoot: true
+                      allowPrivilegeEscalation: false
+                      capabilities:
+                          drop: ["ALL"]
+                  readinessProbe:
+                      tcpSocket:
+                          port: 8080
+                      initialDelaySeconds: 10
+                      periodSeconds: 10
+                  livenessProbe:
+                      tcpSocket:
+                          port: 8080
+                      initialDelaySeconds: 30
+                      periodSeconds: 20
+                  resources:
+                      limits:
+                          cpu: "0.25"
+                          memory: "256Mi"
+                      requests:
+                          cpu: "0.1"
+                          memory: "128Mi"
+                  ports:
+                      - name: webui
+                        containerPort: 8080
+                        protocol: TCP
+                  env:
+                      - name: FIREFLY_III_URL
+                        value: http://firefly.firefly.svc.cluster.local:80
+                      - name: VANITY_URL
+                        value: https://firefly.guibi.dev
+                      - name: ASSET_URL
+                        value: /import
+                      - name: TRUSTED_PROXIES
+                        value: "*"
+                      - name: FIREFLY_III_ACCESS_TOKEN
+                        valueFrom:
+                            secretKeyRef:
+                                name: firefly-importer-secrets
+                                key: FIREFLY_ACCESS_TOKEN
+
+            securityContext:
+                seccompProfile:
+                    type: RuntimeDefault
