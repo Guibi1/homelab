@@ -7,13 +7,14 @@ on:
 
 permissions:
     contents: write
+    pull-requests: write
 
 jobs:
     image-updates:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Setup bun
               uses: oven-sh/setup-bun@v2
@@ -22,7 +23,7 @@ jobs:
               run: bun scripts/check-image-updates.ts --fix apps
 
             - name: Open PR
-              uses: peter-evans/create-pull-request@v7
+              uses: peter-evans/create-pull-request@v8
               with:
                   branch: chore/image-updates
                   title: "Chore: Update container images"
