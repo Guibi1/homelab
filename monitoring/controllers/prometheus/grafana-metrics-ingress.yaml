@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+    name: grafana-block-public-metrics
+    namespace: monitoring
+spec:
+    entryPoints:
+        - websecure
+    routes:
+        - match: Host(`srv.guibi.dev`) && PathPrefix(`/metrics`)
+          kind: Rule
+          priority: 10000
+          services:
+              - name: noop@internal
+                kind: TraefikService
+    tls:
+        secretName: tls-guibi.dev

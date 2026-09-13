@@ -4,14 +4,27 @@ metadata:
     name: crafty
     namespace: apps
 spec:
-    type: NodePort
-    externalTrafficPolicy: Local
+    type: ClusterIP
     selector:
         app: crafty
     ports:
         - name: webui
           port: 443
           targetPort: 8443
+          protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: crafty-servers
+    namespace: apps
+spec:
+    type: NodePort
+    externalTrafficPolicy: Local
+    selector:
+        app: crafty
+    ports:
         - name: server-0
           port: 27027
           nodePort: 27027
