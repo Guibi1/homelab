@@ -21,7 +21,7 @@ spec:
 
             containers:
                 - name: pocket-id
-                  image: ghcr.io/11notes/pocket-id:2.14
+                  image: ghcr.io/11notes/pocket-id:2.16
                   imagePullPolicy: Always
                   securityContext:
                       runAsUser: 1000
