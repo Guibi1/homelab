@@ -25,21 +25,12 @@ spec:
                 - name: home-assistant
                   image: ghcr.io/11notes/homeassistant:2026.9
                   imagePullPolicy: Always
-                  command:
-                      - /bin/sh
-                      - -c
-                      - |
-                          rm -f \
-                          /homeassistant/etc/home-assistant.log \
-                          /homeassistant/etc/home-assistant.log.1 \
-                          /homeassistant/etc/home-assistant.log.fault
-
-                          exec /usr/local/bin/entrypoint
                   securityContext:
                       runAsUser: 1000
                       runAsGroup: 1000
                       runAsNonRoot: true
                       allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: true
                       capabilities:
                           drop: ["ALL"]
                   livenessProbe:
@@ -81,9 +72,20 @@ spec:
                   volumeMounts:
                       - name: config
                         mountPath: "/homeassistant/etc"
+                      - name: var
+                        mountPath: "/homeassistant/var"
+                      - name: tmp
+                        mountPath: "/homeassistant/tmp"
 
             volumes:
                 - name: config
                   hostPath:
                       path: "/mnt/SSD/app-storage/home-assistant"
                       type: Directory
+                - name: var
+                  persistentVolumeClaim:
+                      claimName: home-assistant-var
+                - name: tmp
+                  emptyDir:
+                      medium: Memory
+                      sizeLimit: 256Mi

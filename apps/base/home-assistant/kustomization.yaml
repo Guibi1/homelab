@@ -5,4 +5,5 @@ resources:
     - generic-device-plugin.yaml
     - ingress.yaml
     - namespace.yaml
+    - pvc.yaml
     - service.yaml
