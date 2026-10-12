@@ -25,6 +25,18 @@ spec:
                 - name: home-assistant
                   image: ghcr.io/11notes/homeassistant:2026.10
                   imagePullPolicy: Always
+                  # Create the user site before Python starts Home Assistant so
+                  # newly installed HACS dependencies are immediately importable.
+                  command:
+                      - python
+                      - -c
+                      - |
+                          import os
+                          import pathlib
+                          import site
+
+                          pathlib.Path(site.getusersitepackages()).mkdir(parents=True, exist_ok=True)
+                          os.execv("/usr/local/bin/entrypoint", ["/usr/local/bin/entrypoint"])
                   securityContext:
                       runAsUser: 1000
                       runAsGroup: 1000
@@ -69,6 +81,8 @@ spec:
                   env:
                       - name: TZ
                         value: "America/Toronto"
+                      - name: PYTHONUSERBASE
+                        value: "/homeassistant/etc/deps"
                   volumeMounts:
                       - name: config
                         mountPath: "/homeassistant/etc"
