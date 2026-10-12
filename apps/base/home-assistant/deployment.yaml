@@ -21,6 +21,35 @@ spec:
                 seccompProfile:
                     type: RuntimeDefault
 
+            # Python only discovers the user site if it exists at startup.
+            # Use the same image as HA to calculate the correct versioned path.
+            initContainers:
+                - name: prepare-python-deps
+                  image: ghcr.io/11notes/homeassistant:2026.10
+                  imagePullPolicy: Always
+                  command:
+                      - python
+                      - -c
+                      - |
+                          import pathlib
+                          import site
+
+                          pathlib.Path(site.getusersitepackages()).mkdir(parents=True, exist_ok=True)
+                  env:
+                      - name: PYTHONUSERBASE
+                        value: "/homeassistant/var"
+                  securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      runAsNonRoot: true
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: true
+                      capabilities:
+                          drop: ["ALL"]
+                  volumeMounts:
+                      - name: var
+                        mountPath: "/homeassistant/var"
+
             containers:
                 - name: home-assistant
                   image: ghcr.io/11notes/homeassistant:2026.10
@@ -69,6 +98,8 @@ spec:
                   env:
                       - name: TZ
                         value: "America/Toronto"
+                      - name: PYTHONUSERBASE
+                        value: "/homeassistant/var"
                   volumeMounts:
                       - name: config
                         mountPath: "/homeassistant/etc"
@@ -76,6 +107,8 @@ spec:
                         mountPath: "/homeassistant/var"
                       - name: tmp
                         mountPath: "/homeassistant/tmp"
+                      - name: tmp
+                        mountPath: "/tmp"
 
             volumes:
                 - name: config
