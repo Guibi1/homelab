@@ -28,6 +28,10 @@ spec:
                 secretName: tls-certificate
 
         opencloud:
+            ldap:
+                # Keep the built-in user directory when using external OIDC.
+                keepIdm: true
+
             persistence:
                 data:
                     existingClaim: opencloud-data-pvc
