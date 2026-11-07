@@ -25,7 +25,7 @@ spec:
             # Use the same image as HA to calculate the correct versioned path.
             initContainers:
                 - name: prepare-python-deps
-                  image: ghcr.io/11notes/homeassistant:2026.10
+                  image: ghcr.io/11notes/homeassistant:2026.11
                   imagePullPolicy: Always
                   command:
                       - python
@@ -52,7 +52,7 @@ spec:
 
             containers:
                 - name: home-assistant
-                  image: ghcr.io/11notes/homeassistant:2026.10
+                  image: ghcr.io/11notes/homeassistant:2026.11
                   imagePullPolicy: Always
                   securityContext:
                       runAsUser: 1000
