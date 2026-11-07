@@ -86,7 +86,7 @@ spec:
                   resources:
                       limits:
                           cpu: "0.5"
-                          memory: "512Mi"
+                          memory: "1Gi"
                           devic.es/zigbee: 1
                       requests:
                           cpu: "0.25"
@@ -121,4 +121,4 @@ spec:
                 - name: tmp
                   emptyDir:
                       medium: Memory
-                      sizeLimit: 1Gi
+                      sizeLimit: 512Mi
