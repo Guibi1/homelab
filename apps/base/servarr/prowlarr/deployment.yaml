@@ -19,7 +19,7 @@ spec:
 
             containers:
                 - name: prowlarr
-                  image: ghcr.io/11notes/prowlarr:2.7
+                  image: ghcr.io/11notes/prowlarr:3.0
                   imagePullPolicy: Always
                   securityContext:
                       runAsUser: 1000
